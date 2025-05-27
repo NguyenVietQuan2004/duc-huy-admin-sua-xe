@@ -13,11 +13,11 @@ const menuGroups = [
   {
     label: "UTILITIES",
     items: [
-      { value: "Bài viết", linkTo: "/baiviet" },
-      { value: "Dịch vụ", linkTo: "/dichvu" },
-      { value: "Khuyến mại", linkTo: "/khuyenmai" },
-      { value: "Đặt lịch", linkTo: "/datlich" },
-      { value: "Liên hệ", linkTo: "/lienhe" },
+      { value: "Bài viết", linkTo: "/blog" },
+      { value: "Dịch vụ", linkTo: "/service" },
+      { value: "Khuyến mại", linkTo: "/sale" },
+      { value: "Đặt lịch", linkTo: "/appointment" },
+      { value: "Liên hệ", linkTo: "/contact" },
       { value: "Banner", linkTo: "/banner" },
     ],
   },

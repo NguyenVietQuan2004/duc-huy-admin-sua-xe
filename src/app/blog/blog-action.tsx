@@ -48,7 +48,7 @@ function BlogAction({ row }: CellActionProps) {
         <DropdownMenuContent align="end">
           <DropdownMenuItem onClick={onCopy}>Copy ID</DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => router.push(`/baiviet/${row._id}`)}>Update</DropdownMenuItem>
+          <DropdownMenuItem onClick={() => router.push(`/blog/${row._id}`)}>Update</DropdownMenuItem>
           <DropdownMenuItem onClick={() => setOpen(true)}>Delete</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
