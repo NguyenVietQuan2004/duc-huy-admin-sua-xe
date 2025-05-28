@@ -1,38 +1,34 @@
 "use client";
 
-import { Blog } from "@/type/blog";
+import { Service } from "@/type/service";
 import { useForm, useFieldArray } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import ContentInput from "./content-blog";
+import ContentInput from "./content-service";
 import ImageUpload from "@/components/image-upload";
 
 type Props = {
-  blog?: Blog | null;
+  service?: Service | null;
 };
 
-type BlogForm = Omit<Blog, "images" | "images_name" | "created_at" | "updated_at"> & {
+type ServiceForm = Omit<Service, "images" | "created_at" | "updated_at"> & {
   images: { value: string }[];
-  images_name: { value: string }[];
 };
 
-export default function BlogDetailClient({ blog }: Props) {
-  const isEditing = Boolean(blog && blog._id);
+export default function ServiceDetailClient({ service }: Props) {
+  const isEditing = Boolean(service && service._id);
 
-  const defaultValues: BlogForm = blog
+  const defaultValues: ServiceForm = service
     ? {
-        ...blog,
-        images: blog.images.map((url) => ({ value: url })),
-        images_name: blog.images_name.map((name) => ({ value: name })),
+        ...service,
+        images: service.images.map((url) => ({ value: url })),
       }
     : {
         _id: "",
-        title: "",
-        name: "Góc tư vấn",
+        name: "",
         content: "",
         images: [],
-        images_name: [],
         author_id: "",
       };
 
@@ -43,7 +39,7 @@ export default function BlogDetailClient({ blog }: Props) {
     setValue,
     getValues,
     formState: { errors },
-  } = useForm<BlogForm>({ defaultValues });
+  } = useForm<ServiceForm>({ defaultValues });
 
   const {
     fields: imageFields,
@@ -54,25 +50,14 @@ export default function BlogDetailClient({ blog }: Props) {
     name: "images",
   });
 
-  const {
-    fields: imageNameFields,
-    append: appendImageName,
-    remove: removeImageName,
-  } = useFieldArray({
-    control,
-    name: "images_name",
-  });
-  const onSubmit = (data: BlogForm) => {
+  const onSubmit = (data: ServiceForm) => {
     const { created_at: _, updated_at: __, ...rest } = data as any;
-    const blogData: Blog = {
+    const serviceData: Service = {
       ...rest,
       images: data.images.map((item) => item.value),
-      images_name: data.images_name.map((item) => item.value),
     };
-    if (isEditing) {
-    }
-    console.log(isEditing ? "Updating blog" : "Creating blog", blogData);
-    // Gọi API POST hoặc PUT với blogData ở đây
+    console.log(isEditing ? "Updating service" : "Creating service", serviceData);
+    // Gọi API POST hoặc PUT với serviceData ở đây
   };
 
   return (
@@ -84,23 +69,17 @@ export default function BlogDetailClient({ blog }: Props) {
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <input type="hidden" {...register("_id")} />
 
+        {/* Tên chuyên mục */}
         <div>
-          <Label className="mb-2" htmlFor="title">
-            Tiêu đề
-          </Label>
-          <Input id="title" {...register("title", { required: true })} />
-          {errors.title && <p className="text-red-500 text-sm">Bắt buộc</p>}
-        </div>
-
-        <div className="hidden">
-          <Label className="mb-2" htmlFor="name">
-            Góc tư vấn
-          </Label>
+          <Label htmlFor="name">Tên chuyên mục</Label>
           <Input id="name" {...register("name", { required: true })} />
+          {errors.name && <p className="text-red-500 text-sm">Bắt buộc</p>}
         </div>
 
+        {/* Nội dung bài viết */}
         <ContentInput setValue={setValue} getValues={getValues} errors={errors} />
 
+        {/* Ảnh */}
         <div>
           <Label className="mb-2">Thêm ảnh</Label>
           <div className="mt-2">
@@ -108,28 +87,18 @@ export default function BlogDetailClient({ blog }: Props) {
               value={imageFields.map((img) => img.value).filter((url) => url)}
               onChange={(url) => {
                 appendImage({ value: url });
-                appendImageName({ value: "" }); //  tên ảnh trống tương ứng
               }}
               onRemove={(url) => {
                 const indexToRemove = imageFields.findIndex((item) => item.value === url);
                 if (indexToRemove !== -1) {
                   removeImage(indexToRemove);
-                  removeImageName(indexToRemove); // Xóa tên ảnh tương ứng
                 }
               }}
             />
           </div>
         </div>
 
-        <div>
-          <Label className="mb-2">Tên ảnh</Label>
-          {imageNameFields.map((field, index) => (
-            <div key={field.id} className="flex gap-2 mt-2">
-              <Input {...register(`images_name.${index}.value` as const, { required: true })} />
-            </div>
-          ))}
-        </div>
-        {/* Author */}
+        {/* Tác giả */}
         <div>
           <Label className="mb-2" htmlFor="author_id">
             Tác giả
@@ -137,7 +106,6 @@ export default function BlogDetailClient({ blog }: Props) {
           <Input id="author_id" {...register("author_id", { required: true })} />
         </div>
 
-        {/* Submit */}
         <Button type="submit" className="mt-4">
           {isEditing ? "Lưu chỉnh sửa" : "Tạo bài viết"}
         </Button>

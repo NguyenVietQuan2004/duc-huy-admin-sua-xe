@@ -81,7 +81,7 @@ export default function BaiVietDetailClient({ sale }: Props) {
   return (
     <div className="max-w-3xl mx-auto mt-6 p-6 bg-white shadow rounded-xl">
       <h1 className="text-xl font-bold text-indigo-600 mb-4">
-        {isEditing ? "✏️ Chỉnh sửa khuyến mãi" : "➕ Tạo khuyến mãi mới"}
+        {isEditing ? "  Chỉnh sửa khuyến mãi" : " Tạo khuyến mãi mới"}
       </h1>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -111,7 +111,7 @@ export default function BaiVietDetailClient({ sale }: Props) {
               value={imageFields.map((img) => img.value).filter((url) => url)}
               onChange={(url) => {
                 appendImage({ value: url });
-                appendImageName({ value: "" }); // ➕ tên ảnh trống tương ứng
+                appendImageName({ value: "" }); //  tên ảnh trống tương ứng
               }}
               onRemove={(url) => {
                 const indexToRemove = imageFields.findIndex((item) => item.value === url);

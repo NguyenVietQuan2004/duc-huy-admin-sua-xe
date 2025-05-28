@@ -26,6 +26,7 @@ const menuGroups = [
     items: [
       { value: "Login", linkTo: "/login" },
       { value: "Register", linkTo: "/register" },
+      { value: "Manage account", linkTo: "/account" },
     ],
   },
 ];
@@ -34,8 +35,8 @@ function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="col-span-2 p-4  h-[80vh] rounded-2xl overflow-y-scroll">
-      <div className="text-xl font-bold text-indigo-600 mb-6">logo MatDash</div>
+    <aside className="col-span-2 p-4  h-[92vh] rounded-2xl overflow-y-scroll">
+      <div className="text-xl font-bold text-indigo-600 mb-6">DucHuy</div>
       <nav className="flex flex-col gap-2 h-[100vh]">
         {menuGroups.map((group) => (
           <div key={group.label}>
