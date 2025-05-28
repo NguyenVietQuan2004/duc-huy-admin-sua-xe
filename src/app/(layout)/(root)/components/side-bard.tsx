@@ -34,7 +34,7 @@ function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="col-span-1 p-4 w-[260px] h-[80vh] rounded-2xl overflow-y-scroll">
+    <aside className="col-span-2 p-4  h-[80vh] rounded-2xl overflow-y-scroll">
       <div className="text-xl font-bold text-indigo-600 mb-6">logo MatDash</div>
       <nav className="flex flex-col gap-2 h-[100vh]">
         {menuGroups.map((group) => (

@@ -88,7 +88,11 @@ export default function BlogPage() {
         Thêm mới
       </Button>
       <div>
-        <DataTable columns={AppointmentColumns} data={appointments} filterField="full_name" />
+        <DataTable
+          columns={AppointmentColumns}
+          data={[...appointments, ...appointments, ...appointments, ...appointments]}
+          filterField="full_name"
+        />
       </div>
     </div>
   );

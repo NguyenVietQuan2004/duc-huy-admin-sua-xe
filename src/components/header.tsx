@@ -1,9 +1,11 @@
+"use client";
 import Image from "next/image";
+import { UserMenu } from "./user-menu";
 
 function Header() {
   return (
-    <div className="px-8 pb-4 flex justify-end">
-      <div className="border-2 border-transparent hover:border-indigo-600  rounded-full overflow-hidden transition-all duration-300 cursor-pointer">
+    <div className="px-8 pb-4  flex justify-end">
+      {/* <div className=" relative border-2 border-transparent hover:border-indigo-600  rounded-full overflow-hidden transition-all duration-300 cursor-pointer">
         <Image
           alt=""
           src={
@@ -13,7 +15,10 @@ function Header() {
           height={36}
           className="object-cover aspect-square"
         />
-      </div>
+        <div className="absolute"></div>
+      </div> */}
+
+      <UserMenu />
     </div>
   );
 }

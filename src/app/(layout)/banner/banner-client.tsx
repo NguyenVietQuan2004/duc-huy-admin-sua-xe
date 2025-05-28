@@ -43,12 +43,12 @@ export default function BannerClient({ initialData }: BannerClientProps) {
   };
 
   return (
-    <div className="max-w-3xl mx-auto mt-6 p-6 bg-white rounded-xl shadow">
-      <h1 className="text-xl font-bold mb-4 text-indigo-600">🖼️ Cập nhật banner</h1>
+    <div className=" mx-auto mt-6 p-6 bg-white rounded-xl w-full shadow">
+      <h1 className="text-2xl font-medium mb-4">Cập nhật banner</h1>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <div>
-          <Label>Thêm ảnh</Label>
+          <Label className="my-4">Thêm ảnh</Label>
           <ImageUpload
             value={fields.map((item) => item.value)}
             onChange={(url) => append({ value: url })}

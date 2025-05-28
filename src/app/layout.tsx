@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Kanit } from "next/font/google";
 import "./globals.css";
-import Sidebar from "./(root)/components/side-bard";
-import Header from "@/components/header";
 import { Toaster } from "@/components/ui/sonner";
 
 const kanit = Kanit({
@@ -23,14 +21,15 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning={true}>
       <body className={kanit.className}>
-        <div className="min-h-screen  p-6 flex  gap-4">
+        {/* <div className="min-h-screen  p-6 flex  gap-4">
           <Sidebar />
           <div className="flex-1">
             <Header />
 
             <main className=" grid gap-4 bg-gray-100 py-8 px-14 rounded-2xl">{children}</main>
           </div>
-        </div>
+        </div> */}
+        {children}
         <Toaster />
       </body>
     </html>

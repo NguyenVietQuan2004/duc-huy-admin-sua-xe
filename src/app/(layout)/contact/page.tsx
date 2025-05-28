@@ -44,7 +44,11 @@ export default function BlogPage() {
         Thêm mới
       </Button>
       <div>
-        <DataTable columns={ContactColumns} data={contactMessages} filterField="full_name" />
+        <DataTable
+          columns={ContactColumns}
+          data={[...contactMessages, ...contactMessages, ...contactMessages, ...contactMessages]}
+          filterField="full_name"
+        />
       </div>
     </div>
   );

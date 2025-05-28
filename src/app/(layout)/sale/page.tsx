@@ -65,7 +65,11 @@ export default function SalePage() {
         Thêm mới
       </Button>
       <div className="">
-        <DataTable columns={SaleColumns} data={initialSales} filterField="title" />
+        <DataTable
+          columns={SaleColumns}
+          data={[...initialSales, ...initialSales, ...initialSales, ...initialSales]}
+          filterField="title"
+        />
       </div>
     </div>
   );

@@ -11,7 +11,8 @@ const initialBlogs: Blog[] = [
     _id: "1",
     title: "First Blog",
     name: "first-blog",
-    content: "This is the content of the first blog.",
+    content:
+      "This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.",
     images: ["https://nhatphatauto.vn/wp-content/uploads/2025/04/25T04-05-NhatPhat-Post-BaoDuong-1200x1200-02.jpg"],
     images_name: ["placeholder.png"],
     author_id: "admin",
@@ -64,8 +65,12 @@ export default function BlogPage() {
       >
         Thêm mới
       </Button>
-      <div className="">
-        <DataTable columns={BlogColumns} data={initialBlogs} filterField="title" />
+      <div className="   mx-auto py-10">
+        <DataTable
+          columns={BlogColumns}
+          data={[...initialBlogs, ...initialBlogs, ...initialBlogs, ...initialBlogs]}
+          filterField="title"
+        />
       </div>
     </div>
   );

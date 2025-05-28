@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -26,9 +27,11 @@ export default function RegisterPage() {
       password: "",
     },
   });
+  const router = useRouter();
 
   const onSubmit = (data: FormSchema) => {
     console.log("Form data", data);
+    router.push("/login");
     // fetch("/api/register", { method: "POST", body: JSON.stringify(data) })
   };
 

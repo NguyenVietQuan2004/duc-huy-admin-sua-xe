@@ -55,7 +55,7 @@ export function DataTable<TData, TValue>({ columns, data, filterField }: DataTab
           placeholder={`Filter ${filterField}...`}
           value={(table.getColumn(filterField)?.getFilterValue() as string) ?? ""}
           onChange={(event) => table.getColumn(filterField)?.setFilterValue(event.target.value)}
-          className="max-w-sm"
+          className="max-w-sm bg-white  !ring-0"
         />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -82,14 +82,14 @@ export function DataTable<TData, TValue>({ columns, data, filterField }: DataTab
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      <div className="rounded-md border font-light">
-        <Table>
+      <div className="rounded-md border  font-light bg-white">
+        <Table className="">
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id}>
+                    <TableHead className="!min-w-[100px] text-[#71717a] " key={header.id}>
                       {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                     </TableHead>
                   );
@@ -97,12 +97,17 @@ export function DataTable<TData, TValue>({ columns, data, filterField }: DataTab
               </TableRow>
             ))}
           </TableHeader>
-          <TableBody>
+          <TableBody className="">
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
+                <TableRow className="" key={row.id} data-state={row.getIsSelected() && "selected"}>
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
+                    <TableCell
+                      className="max-w-[200px]  overflow-hidden text-ellipsis whitespace-nowrap "
+                      key={cell.id}
+                    >
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </TableCell>
                   ))}
                 </TableRow>
               ))

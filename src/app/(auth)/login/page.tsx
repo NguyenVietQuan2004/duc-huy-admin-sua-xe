@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   email: z.string().email("Invalid email"),
@@ -34,10 +35,11 @@ export default function LoginPage() {
       remember: false,
     },
   });
-
+  const router = useRouter();
   const onSubmit = (data: FormSchema) => {
     console.log(data);
     // TODO: API login here
+    router.push("/");
   };
 
   return (
