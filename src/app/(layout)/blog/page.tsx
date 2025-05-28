@@ -1,10 +1,7 @@
-"use client";
-
-import { BlogColumns } from "./blog-columns";
+import ButtonAddNew from "@/components/button-add-new";
 import { DataTable } from "@/components/data-table";
-import { Button } from "@/components/ui/button";
 import { Blog } from "@/type/blog";
-import { useRouter } from "next/navigation";
+import { BlogColumns } from "./table/blog-columns";
 
 const initialBlogs: Blog[] = [
   {
@@ -55,16 +52,9 @@ const initialBlogs: Blog[] = [
 ];
 
 export default function BlogPage() {
-  const router = useRouter();
   return (
     <div className="">
-      <Button
-        variant={"destructive"}
-        className="cursor-pointer hover:opacity-70"
-        onClick={() => router.push("/baiviet/new")}
-      >
-        Thêm mới
-      </Button>
+      <ButtonAddNew linkTo="blog" />
       <div className="   mx-auto py-10">
         <DataTable
           columns={BlogColumns}

@@ -47,9 +47,9 @@ function Sidebar() {
                 <Link href={item.linkTo} key={item.value} className="">
                   <Button
                     variant="ghost"
-                    className={`justify-start cursor-pointer w-full mt-2 font-light ${
+                    className={`justify-start cursor-pointer transition-all duration-200 w-full mt-2 font-light ${
                       isActive
-                        ? "bg-indigo-100 text-indigo-600 hover:bg-indigo-100 hover:text-indigo-600"
+                        ? "bg-[#635bff] text-white shadow-[0_15px_20px_-8px_rgba(77,91,236,0.231)] hover:bg-[#635bff] hover:text-white"
                         : "hover:bg-indigo-100 hover:text-indigo-600"
                     }`}
                   >

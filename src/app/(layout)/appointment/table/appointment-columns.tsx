@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 import { Appointment } from "@/type/appointment";
-import CellStatusAppointment from "./cell-action";
+import CellStatusAppointment from "./appointment-status-action";
 
 export const AppointmentColumns: ColumnDef<Appointment>[] = [
   {

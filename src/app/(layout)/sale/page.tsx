@@ -1,10 +1,7 @@
-"use client";
-
-import { SaleColumns } from "./sale-columns";
+import ButtonAddNew from "@/components/button-add-new";
 import { DataTable } from "@/components/data-table";
-import { Button } from "@/components/ui/button";
 import { Sale } from "@/type/sale";
-import { useRouter } from "next/navigation";
+import { SaleColumns } from "./table/sale-columns";
 
 const initialSales: Sale[] = [
   {
@@ -54,16 +51,9 @@ const initialSales: Sale[] = [
 ];
 
 export default function SalePage() {
-  const router = useRouter();
   return (
     <div className="">
-      <Button
-        variant={"destructive"}
-        className="cursor-pointer hover:opacity-70"
-        onClick={() => router.push("/khuyenmai/new")}
-      >
-        Thêm mới
-      </Button>
+      <ButtonAddNew linkTo="sale" />
       <div className="">
         <DataTable
           columns={SaleColumns}

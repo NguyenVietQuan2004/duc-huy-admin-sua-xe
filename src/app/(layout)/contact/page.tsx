@@ -1,12 +1,9 @@
-"use client";
-
-import { ContactColumns } from "./contact-columns";
+import ButtonAddNew from "@/components/button-add-new";
+import { ContactColumns } from "./table/contact-columns";
 import { DataTable } from "@/components/data-table";
-import { Button } from "@/components/ui/button";
 import { Contact } from "@/type/contact";
-import { useRouter } from "next/navigation";
 
-export default function BlogPage() {
+export default function ContactPage() {
   const contactMessages: Contact[] = [
     {
       _id: "1",
@@ -33,16 +30,9 @@ export default function BlogPage() {
       createdAt: new Date("2025-05-22T14:15:00"),
     },
   ];
-  const router = useRouter();
   return (
     <div>
-      <Button
-        variant={"destructive"}
-        className="cursor-pointer hover:opacity-70"
-        onClick={() => router.push("/khuyenmai/new")}
-      >
-        Thêm mới
-      </Button>
+      <ButtonAddNew linkTo="contact" />
       <div>
         <DataTable
           columns={ContactColumns}

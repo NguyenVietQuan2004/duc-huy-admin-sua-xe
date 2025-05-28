@@ -1,10 +1,6 @@
-"use client";
-
-import { AppointmentColumns } from "./appointment-columns";
+import { AppointmentColumns } from "./table/appointment-columns";
 import { DataTable } from "@/components/data-table";
-import { Button } from "@/components/ui/button";
 import { Appointment } from "@/type/appointment";
-import { useRouter } from "next/navigation";
 
 const appointments: Appointment[] = [
   {
@@ -76,17 +72,9 @@ const appointments: Appointment[] = [
   },
 ];
 
-export default function BlogPage() {
-  const router = useRouter();
+export default function AppointmentPage() {
   return (
     <div>
-      <Button
-        variant={"destructive"}
-        className="cursor-pointer hover:opacity-70"
-        onClick={() => router.push("/khuyenmai/new")}
-      >
-        Thêm mới
-      </Button>
       <div>
         <DataTable
           columns={AppointmentColumns}
