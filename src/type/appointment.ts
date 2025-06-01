@@ -21,5 +21,5 @@ export type Appointment = {
   center: Center;
   created_at: Date;
   updated_at: Date;
-  status: boolean;
+  status: "pending" | "done" | "cancelled";
 };

@@ -4,36 +4,32 @@ import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { useAppSelector } from "@/store/hook";
 
 const menuGroups = [
   {
     label: "HOME",
-    items: [{ value: "Dashboard", linkTo: "/" }],
+    items: [{ value: "Dashboard", linkTo: "/", private: false }],
   },
   {
     label: "UTILITIES",
     items: [
-      { value: "Bài viết", linkTo: "/blog" },
-      { value: "Dịch vụ", linkTo: "/service" },
-      { value: "Khuyến mại", linkTo: "/sale" },
-      { value: "Đặt lịch", linkTo: "/appointment" },
-      { value: "Liên hệ", linkTo: "/contact" },
-      { value: "Banner", linkTo: "/banner" },
+      { value: "Bài viết", linkTo: "/blog", private: false },
+      { value: "Dịch vụ", linkTo: "/service", private: false },
+      { value: "Khuyến mại", linkTo: "/sale", private: false },
+      { value: "Đặt lịch", linkTo: "/appointment", private: false },
+      { value: "Liên hệ", linkTo: "/contact", private: false },
     ],
   },
   {
     label: "AUTH",
-    items: [
-      { value: "Login", linkTo: "/login" },
-      { value: "Register", linkTo: "/register" },
-      { value: "Manage account", linkTo: "/account" },
-    ],
+    items: [{ value: "Manage account", linkTo: "/account", private: true }],
   },
 ];
 
 function Sidebar() {
   const pathname = usePathname();
-
+  const isBoss = !useAppSelector((state) => state.auth.role);
   return (
     <aside className="col-span-2 p-4  h-[92vh] rounded-2xl overflow-y-scroll">
       <div className="text-xl font-bold text-indigo-600 mb-6">DucHuy</div>
@@ -45,7 +41,7 @@ function Sidebar() {
               const isActive = pathname === item.linkTo;
 
               return (
-                <Link href={item.linkTo} key={item.value} className="">
+                <Link href={item.linkTo} key={item.value} className={`    ${item.private && !isBoss && "hidden"} `}>
                   <Button
                     variant="ghost"
                     className={`justify-start cursor-pointer transition-all duration-200 w-full mt-2 font-light ${

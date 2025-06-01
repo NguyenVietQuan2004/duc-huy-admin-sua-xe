@@ -5,6 +5,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 import SaleAcTion from "./sale-action";
 import { Sale } from "@/type/sale";
+import { stripHtml } from "@/lib/utils";
 
 export const SaleColumns: ColumnDef<Sale>[] = [
   {
@@ -24,7 +25,11 @@ export const SaleColumns: ColumnDef<Sale>[] = [
   },
   {
     accessorKey: "content",
-    header: "content",
+    header: "Nội dung",
+    cell: ({ row }) => {
+      const rawContent = row.getValue("content") as string;
+      return stripHtml(rawContent);
+    },
   },
   {
     accessorKey: "name",

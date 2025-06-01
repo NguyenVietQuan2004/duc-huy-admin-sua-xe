@@ -15,18 +15,30 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import AlertModal from "@/components/alert-modal";
 import { Account } from "@/type/account";
+import { useAppSelector } from "@/store/hook";
+import { authApi } from "@/api-request/authAPI";
 interface CellActionProps {
   row: Account;
 }
 function AccountAction({ row }: CellActionProps) {
   const [open, setOpen] = useState(false);
   // const [isLoading, setIsLoading] = useState(false);
+  const token = useAppSelector((state) => state.auth.token);
+
+  const headers = {
+    Authorization: `Bearer ${token}`,
+  };
+
   const router = useRouter();
   const onCopy = () => {
     toast("Đã copy");
     navigator.clipboard.writeText(row._id);
   };
-  const handleDeleteProduct = async () => {};
+  const handleDeleteProduct = async () => {
+    await authApi.deleteAdmin({ _id: row._id, headers });
+    window.location.reload();
+    setOpen(false);
+  };
 
   return (
     <div>

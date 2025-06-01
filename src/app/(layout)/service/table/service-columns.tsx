@@ -5,6 +5,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 import BaiVietAcTion from "./service-action";
 import { Service } from "@/type/service";
+import { stripHtml } from "@/lib/utils";
 
 export const ServiceColumns: ColumnDef<Service>[] = [
   {
@@ -24,7 +25,11 @@ export const ServiceColumns: ColumnDef<Service>[] = [
   },
   {
     accessorKey: "content",
-    header: "content",
+    header: "Nội dung",
+    cell: ({ row }) => {
+      const rawContent = row.getValue("content") as string;
+      return stripHtml(rawContent);
+    },
   },
   {
     id: "actions",

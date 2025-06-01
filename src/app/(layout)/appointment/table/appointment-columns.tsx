@@ -5,6 +5,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 import { Appointment } from "@/type/appointment";
 import CellStatusAppointment from "./appointment-status-action";
+import AppointmentAction from "./appointment-action";
 
 export const AppointmentColumns: ColumnDef<Appointment>[] = [
   {
@@ -31,8 +32,13 @@ export const AppointmentColumns: ColumnDef<Appointment>[] = [
     header: "license_plate",
   },
   {
-    id: "actions",
+    id: "actions1",
     enableHiding: false,
     cell: ({ row }) => <CellStatusAppointment row={row.original} />,
+  },
+  {
+    id: "actions2",
+    enableHiding: false,
+    cell: ({ row }) => <AppointmentAction row={row.original} />,
   },
 ];

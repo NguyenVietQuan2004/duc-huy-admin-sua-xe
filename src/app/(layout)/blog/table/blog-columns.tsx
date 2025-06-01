@@ -5,6 +5,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 import BaiVietAcTion from "./blog-action";
 import { Blog } from "@/type/blog";
+import { stripHtml } from "@/lib/utils";
 
 export const BlogColumns: ColumnDef<Blog>[] = [
   {
@@ -22,98 +23,16 @@ export const BlogColumns: ColumnDef<Blog>[] = [
       );
     },
   },
+
   {
     accessorKey: "content",
-    header: "content",
+    header: "Nội dung",
+    cell: ({ row }) => {
+      const rawContent = row.getValue("content") as string;
+      return stripHtml(rawContent);
+    },
   },
-  {
-    accessorKey: "content",
-    header: "content",
-  },
-  {
-    accessorKey: "content",
-    header: "content",
-  },
-  {
-    accessorKey: "content",
-    header: "content",
-  },
-  {
-    accessorKey: "content",
-    header: "content",
-  },
-  {
-    accessorKey: "content",
-    header: "content",
-  },
-  {
-    accessorKey: "content",
-    header: "content",
-  },
-  {
-    accessorKey: "content",
-    header: "content",
-  },
-  {
-    accessorKey: "content",
-    header: "content",
-  },
-  {
-    accessorKey: "content",
-    header: "content",
-  },
-  {
-    accessorKey: "content",
-    header: "content",
-  },
-  {
-    accessorKey: "name",
-    header: "name",
-  },
-  {
-    accessorKey: "content",
-    header: "content",
-  },
-  {
-    accessorKey: "content",
-    header: "content",
-  },
-  {
-    accessorKey: "name",
-    header: "name",
-  },
-  {
-    accessorKey: "content",
-    header: "content",
-  },
-  {
-    accessorKey: "content",
-    header: "content",
-  },
-  {
-    accessorKey: "name",
-    header: "name",
-  },
-  {
-    accessorKey: "content",
-    header: "content",
-  },
-  {
-    accessorKey: "content",
-    header: "content",
-  },
-  {
-    accessorKey: "name",
-    header: "name",
-  },
-  {
-    accessorKey: "content",
-    header: "content",
-  },
-  {
-    accessorKey: "content",
-    header: "content",
-  },
+
   {
     accessorKey: "name",
     header: "name",

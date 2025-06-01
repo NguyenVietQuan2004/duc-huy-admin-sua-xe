@@ -9,7 +9,9 @@ import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-
+import { authApi } from "../../../api-request/authAPI";
+import { useAppDispatch, useAppSelector } from "@/store/hook";
+import * as authActions from "@/store/slices/authSlice";
 const formSchema = z.object({
   email: z.string().email("Invalid email"),
   password: z.string().min(6, "Password must be at least 6 characters"),
@@ -36,10 +38,22 @@ export default function LoginPage() {
     },
   });
   const router = useRouter();
-  const onSubmit = (data: FormSchema) => {
-    console.log(data);
-    // TODO: API login here
-    router.push("/");
+  const dispatch = useAppDispatch();
+
+  const data = useAppSelector((state) => state.auth);
+  const onSubmit = async (data: FormSchema) => {
+    try {
+      const response = await authApi.login({ email: data.email, password: data.password });
+      const accessToken = response.data.access_token;
+      dispatch(authActions.login(accessToken));
+
+      await authApi.sendCookieToServer(accessToken);
+
+      router.push("/");
+    } catch (error) {
+      console.log(error);
+      form.setError("email", { type: "manual", message: "Thông tin tài khoản hoặc mật khẩu không chính xác" });
+    }
   };
 
   return (
@@ -58,7 +72,7 @@ export default function LoginPage() {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Username</FormLabel>
+                  <FormLabel>Email</FormLabel>
                   <FormControl>
                     <Input className="bg-indigo-50" type="email" {...field} />
                   </FormControl>

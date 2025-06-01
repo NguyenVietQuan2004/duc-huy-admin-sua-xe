@@ -1,66 +1,34 @@
+"use client";
 import ButtonAddNew from "@/components/button-add-new";
 import { DataTable } from "@/components/data-table";
 import { Blog } from "@/type/blog";
 import { BlogColumns } from "./table/blog-columns";
-
-const initialBlogs: Blog[] = [
-  {
-    _id: "1",
-    title: "First Blog",
-    name: "first-blog",
-    content:
-      "This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.This is the content of the first blog.",
-    images: ["https://nhatphatauto.vn/wp-content/uploads/2025/04/25T04-05-NhatPhat-Post-BaoDuong-1200x1200-02.jpg"],
-    images_name: ["placeholder.png"],
-    author_id: "admin",
-    created_at: new Date(),
-    updated_at: new Date(),
-  },
-  {
-    _id: "5",
-    title: "First dfsdBlog",
-    name: "first-blog",
-    content: "This is the content of the first blog.",
-    images: ["https://nhatphatauto.vn/wp-content/uploads/2025/04/25T04-05-NhatPhat-Post-BaoDuong-1200x1200-02.jpg"],
-    images_name: ["placeholder.png"],
-    author_id: "admin",
-    created_at: new Date(),
-    updated_at: new Date(),
-  },
-  {
-    _id: "2",
-    title: "First Bldsadfsog",
-    name: "first-blog",
-    content: "This is the content of the first blog.",
-    images: ["https://nhatphatauto.vn/wp-content/uploads/2025/04/25T04-05-NhatPhat-Post-BaoDuong-1200x1200-02.jpg"],
-    images_name: ["placeholder.png"],
-    author_id: "admin",
-    created_at: new Date(),
-    updated_at: new Date(),
-  },
-  {
-    _id: "3",
-    title: "First Bsdfdsslog",
-    name: "first-blog",
-    content: "This is the content of the first blog.",
-    images: ["https://nhatphatauto.vn/wp-content/uploads/2025/04/25T04-05-NhatPhat-Post-BaoDuong-1200x1200-02.jpg"],
-    images_name: ["placeholder.png"],
-    author_id: "admin",
-    created_at: new Date(),
-    updated_at: new Date(),
-  },
-];
+import { blogApi } from "@/api-request/blogApi";
+import { useEffect, useState } from "react";
+import { useAppSelector } from "@/store/hook";
 
 export default function BlogPage() {
+  const [blogs, setBlogs] = useState([]);
+  const token = useAppSelector((state) => state.auth.token);
+  useEffect(() => {
+    const fetchAPI = async () => {
+      const blogs = await blogApi.getAllBlogs({
+        limit: 100,
+        page: 1,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Gắn token vào header Authorization
+        },
+      });
+      setBlogs(blogs);
+    };
+    fetchAPI();
+  }, [token]);
   return (
     <div className="">
       <ButtonAddNew linkTo="blog" />
       <div className="   mx-auto py-10">
-        <DataTable
-          columns={BlogColumns}
-          data={[...initialBlogs, ...initialBlogs, ...initialBlogs, ...initialBlogs]}
-          filterField="title"
-        />
+        <DataTable columns={BlogColumns} data={blogs} filterField="title" />
       </div>
     </div>
   );

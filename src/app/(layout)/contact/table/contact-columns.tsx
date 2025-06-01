@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 import { Contact } from "@/type/contact";
+import CellStatusContact from "./contact-status-action";
+import ContactAction from "./contact-action";
 
 export const ContactColumns: ColumnDef<Contact>[] = [
   {
@@ -29,9 +31,14 @@ export const ContactColumns: ColumnDef<Contact>[] = [
     accessorKey: "message",
     header: "message",
   },
-  // {
-  //   id: "actions",
-  //   enableHiding: false,
-  //   cell: ({ row }) => <CellStatusAppointment row={row.original} />,
-  // },
+  {
+    id: "actions",
+    enableHiding: false,
+    cell: ({ row }) => <CellStatusContact row={row.original} />,
+  },
+  {
+    id: "actions2",
+    enableHiding: false,
+    cell: ({ row }) => <ContactAction row={row.original} />,
+  },
 ];

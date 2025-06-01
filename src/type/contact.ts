@@ -4,5 +4,6 @@ export type Contact = {
   phone_number: string;
   email: string;
   message: string;
-  createdAt: Date;
+  handled?: boolean;
+  created_at?: Date;
 };

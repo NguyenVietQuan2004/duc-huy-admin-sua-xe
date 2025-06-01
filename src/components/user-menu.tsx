@@ -9,8 +9,15 @@ import {
 import { Button } from "@/components/ui/button";
 import { User, Mail, ListChecks, LogOut } from "lucide-react";
 import Image from "next/image";
+import { authApi } from "@/api-request/authAPI";
+import { useRouter } from "next/navigation";
 
 export function UserMenu() {
+  const router = useRouter();
+  const handleLogout = async () => {
+    await authApi.signOutNextServer();
+    router.refresh();
+  };
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -45,7 +52,7 @@ export function UserMenu() {
           <ListChecks className="w-4 h-4" />
           My Task
         </DropdownMenuItem>
-        <div className="pt-2">
+        <div className="pt-2" onClick={handleLogout}>
           <Button variant="outline" className="w-full border border-violet-500 text-violet-600 hover:bg-violet-50">
             <LogOut className="w-4 h-4 mr-2" />
             Logout

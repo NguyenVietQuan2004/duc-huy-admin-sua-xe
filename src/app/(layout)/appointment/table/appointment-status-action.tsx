@@ -5,18 +5,45 @@ import { Loader2 } from "lucide-react";
 import AlertModal from "@/components/alert-modal";
 import { Appointment } from "@/type/appointment";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { appointmentApi } from "@/api-request/appointment";
+import { useAppSelector } from "@/store/hook";
 
 interface CellStatusAppointmentProps {
   row: Appointment;
 }
 
 function CellStatusAppointment({ row }: CellStatusAppointmentProps) {
-  const [status, setStatus] = useState(row.status); // true / false
-  const [selected, setSelected] = useState(row.status ? "true" : "false");
+  const [status, setStatus] = useState<Appointment["status"]>(row.status); // "pending" | "done" | "cancelled"
+  const [selected, setSelected] = useState<Appointment["status"]>(row.status);
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const token = useAppSelector((state) => state.auth.token);
+
+  const headers = {
+    Authorization: `Bearer ${token}`,
+  };
 
   const handleStatusChange = async () => {
-    setStatus(true);
+    setLoading(true);
+    try {
+      // Chỉ gọi API khi selected là done
+      if (selected === "done") {
+        await appointmentApi.updateAppointment({
+          _id: row._id,
+          headers,
+        });
+        setStatus(selected);
+      } else {
+        // Nếu không phải done, chỉ set trạng thái local thôi
+        setStatus(selected);
+      }
+    } catch (error) {
+      console.error("Failed to update appointment status:", error);
+      setSelected(status); // rollback khi lỗi
+    } finally {
+      setLoading(false);
+      setOpen(false);
+    }
   };
 
   return (
@@ -32,27 +59,29 @@ function CellStatusAppointment({ row }: CellStatusAppointmentProps) {
         <div className="flex items-center gap-4">
           <Select
             value={selected}
-            onValueChange={(value: any) => {
-              if (value !== String(status)) {
-                setSelected(value);
-                setOpen(true); // Mở Alert để xác nhận
+            onValueChange={(value: string) => {
+              const castedValue = value as Appointment["status"];
+              if (castedValue !== status) {
+                setSelected(castedValue);
+                setOpen(true);
               }
             }}
+            disabled={status === "done"} // khóa select nếu đã done
           >
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Chọn trạng thái" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="true">Đã xác nhận</SelectItem>
-              <SelectItem value="false">Chưa xác nhận</SelectItem>
+              <SelectItem value="pending">Chưa xác nhận</SelectItem>
+              <SelectItem value="done">Đã xác nhận</SelectItem>
+              {/* <SelectItem disabled value="cancelled">
+                Đã hủy
+              </SelectItem> */}
             </SelectContent>
           </Select>
 
-          {/* {loading && <Loader2 className="w-4 h-4 animate-spin text-muted-foreground" />} */}
-          <Loader2 className="w-4 h-4 animate-spin text-muted-foreground" />
+          {loading && <Loader2 className="w-4 h-4 animate-spin text-muted-foreground" />}
         </div>
-
-        {/* {error && <div className="text-red-500 text-sm">{error}</div>} */}
       </div>
     </>
   );

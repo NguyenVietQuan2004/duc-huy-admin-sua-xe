@@ -12,7 +12,7 @@ export default function RootLayout({
       <div className="col-span-10">
         <Header />
 
-        <main className=" bg-[#fafdff] py-8 px-14 rounded-2xl">{children}</main>
+        <main className=" bg-[#e9f2f8] py-8 px-14 rounded-2xl">{children}</main>
       </div>
     </div>
   );
