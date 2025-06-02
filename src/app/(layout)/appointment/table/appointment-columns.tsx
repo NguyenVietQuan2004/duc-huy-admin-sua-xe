@@ -32,6 +32,18 @@ export const AppointmentColumns: ColumnDef<Appointment>[] = [
     header: "license_plate",
   },
   {
+    accessorKey: "expected_date",
+    header: "expected_date",
+  },
+  {
+    accessorKey: "expected_time",
+    header: "expected_time",
+  },
+  {
+    accessorKey: "car_type",
+    header: "car_type",
+  },
+  {
     id: "actions1",
     enableHiding: false,
     cell: ({ row }) => <CellStatusAppointment row={row.original} />,
