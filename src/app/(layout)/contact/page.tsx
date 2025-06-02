@@ -20,7 +20,7 @@ export default function ContactPage() {
           Authorization: `Bearer ${token}`, // Gắn token vào header Authorization
         },
       });
-      setContacts(contacts);
+      setContacts(contacts.data);
     };
     fetchAPI();
   }, [token]);

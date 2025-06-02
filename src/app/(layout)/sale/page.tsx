@@ -20,7 +20,7 @@ export default function SalePage() {
           Authorization: `Bearer ${token}`, // Gắn token vào header Authorization
         },
       });
-      setSales(sales);
+      setSales(sales.data);
     };
     fetchAPI();
   }, [token]);
