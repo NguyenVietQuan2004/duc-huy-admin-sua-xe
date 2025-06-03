@@ -10,8 +10,10 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { authApi } from "../../../api-request/authAPI";
-import { useAppDispatch, useAppSelector } from "@/store/hook";
+import { useAppDispatch } from "@/store/hook";
 import * as authActions from "@/store/slices/authSlice";
+import { useState } from "react";
+import { Loader } from "lucide-react";
 const formSchema = z.object({
   email: z.string().email("Invalid email"),
   password: z.string().min(6, "Password must be at least 6 characters"),
@@ -38,11 +40,12 @@ export default function LoginPage() {
     },
   });
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
   const dispatch = useAppDispatch();
 
-  const data = useAppSelector((state) => state.auth);
   const onSubmit = async (data: FormSchema) => {
     try {
+      setIsLoading(true);
       const response = await authApi.login({ email: data.email, password: data.password });
       const accessToken = response.data.access_token;
       dispatch(authActions.login(accessToken));
@@ -53,6 +56,8 @@ export default function LoginPage() {
     } catch (error) {
       console.log(error);
       form.setError("email", { type: "manual", message: "Thông tin tài khoản hoặc mật khẩu không chính xác" });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -110,18 +115,13 @@ export default function LoginPage() {
                 Forgot Password ?
               </Link>
             </div> */}
-            <Button type="submit" className="w-full bg-indigo-500 hover:bg-indigo-600">
-              Sign in
+            <Button disabled={isLoading} type="submit" className="w-full bg-indigo-500 hover:bg-indigo-600">
+              {isLoading ? <Loader className="animate-spin" /> : "Sign in"}
             </Button>
           </form>
         </Form>
 
-        <p className="text-center text-sm text-gray-600 mt-6">
-          New to Matdash?{" "}
-          <Link href="/register" className="text-indigo-500 hover:underline">
-            Create an account
-          </Link>
-        </p>
+        <p className="text-center text-sm text-gray-600 mt-6"> Matdash </p>
       </div>
     </div>
   );

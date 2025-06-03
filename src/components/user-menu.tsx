@@ -11,11 +11,15 @@ import { User, Mail, ListChecks, LogOut } from "lucide-react";
 import Image from "next/image";
 import { authApi } from "@/api-request/authAPI";
 import { useRouter } from "next/navigation";
+import { useAppDispatch } from "@/store/hook";
+import { logout } from "@/store/slices/authSlice";
 
 export function UserMenu() {
   const router = useRouter();
+  const dispatch = useAppDispatch();
   const handleLogout = async () => {
     await authApi.signOutNextServer();
+    dispatch(logout());
     router.refresh();
   };
   return (
