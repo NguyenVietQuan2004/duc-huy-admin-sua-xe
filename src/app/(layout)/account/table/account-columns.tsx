@@ -16,7 +16,7 @@ export const AccountColumns: ColumnDef<Account>[] = [
           className="cursor-pointer hover:opacity-70"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Title
+          Tên
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
@@ -24,10 +24,11 @@ export const AccountColumns: ColumnDef<Account>[] = [
   },
   {
     accessorKey: "email",
-    header: "email",
+    header: "Email",
   },
   {
     id: "actions",
+    header: "Hành động", // hoặc "Action" tuỳ bạn
     enableHiding: false,
     cell: ({ row }) => <BaiVietAcTion row={row.original} />,
   },

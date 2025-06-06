@@ -3,6 +3,7 @@ import { Kanit } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import { Providers } from "./provider";
+import PageTransitionLoading from "@/components/loading-ui";
 
 const kanit = Kanit({
   subsets: ["latin"],
@@ -30,7 +31,11 @@ export default function RootLayout({
             <main className=" grid gap-4 bg-gray-100 py-8 px-14 rounded-2xl">{children}</main>
           </div>
         </div> */}
-        <Providers>{children}</Providers>
+        <Providers>
+          {children}
+
+          <PageTransitionLoading />
+        </Providers>
         <Toaster />
       </body>
     </html>

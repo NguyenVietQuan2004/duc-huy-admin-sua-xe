@@ -52,7 +52,7 @@ export function DataTable<TData, TValue>({ columns, data, filterField }: DataTab
     <div>
       <div className="flex items-center py-4 ">
         <Input
-          placeholder={`Filter ${filterField}...`}
+          placeholder={`Lọc ...`}
           value={(table.getColumn(filterField)?.getFilterValue() as string) ?? ""}
           onChange={(event) => table.getColumn(filterField)?.setFilterValue(event.target.value)}
           className="max-w-sm bg-white  !ring-0"

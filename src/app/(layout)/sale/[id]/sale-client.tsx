@@ -146,7 +146,7 @@ export default function SaleDetailClient({ saleId }: Props) {
 
       const formData = new FormData();
       formData.append("title", data.title || "");
-      formData.append("name", data.name || "Tin khuyến mại");
+      formData.append("name", data.name || "Tin khuyến mãi");
       formData.append("content", data.content || "");
       formData.append("author_id", isEditing ? sale?.author_id || "" : adminId || "");
 

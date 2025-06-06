@@ -17,7 +17,7 @@ export const ContactColumns: ColumnDef<Contact>[] = [
           className="cursor-pointer hover:opacity-70"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Title
+          Tên
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
@@ -25,11 +25,11 @@ export const ContactColumns: ColumnDef<Contact>[] = [
   },
   {
     accessorKey: "phone_number",
-    header: "phone_number",
+    header: "Số điện thoại",
   },
   {
     accessorKey: "message",
-    header: "message",
+    header: "Lời nhắn",
   },
   {
     id: "actions",
@@ -39,6 +39,7 @@ export const ContactColumns: ColumnDef<Contact>[] = [
   {
     id: "actions2",
     enableHiding: false,
+    header: "Hành động",
     cell: ({ row }) => <ContactAction row={row.original} />,
   },
 ];

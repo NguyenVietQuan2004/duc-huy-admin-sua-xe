@@ -8,21 +8,21 @@ import { useAppSelector } from "@/store/hook";
 
 const menuGroups = [
   {
-    label: "HOME",
+    label: "TRANG CHỦ",
     items: [{ value: "Dashboard", linkTo: "/", private: false }],
   },
   {
-    label: "UTILITIES",
+    label: "DANH MỤC",
     items: [
       { value: "Bài viết", linkTo: "/blog", private: false },
       { value: "Dịch vụ", linkTo: "/service", private: false },
-      { value: "Khuyến mại", linkTo: "/sale", private: false },
+      { value: "Khuyến mãi", linkTo: "/sale", private: false },
       { value: "Đặt lịch", linkTo: "/appointment", private: false },
       { value: "Liên hệ", linkTo: "/contact", private: false },
     ],
   },
   {
-    label: "AUTH",
+    label: "Quản trị viên (Boss)",
     items: [{ value: "Manage account", linkTo: "/account", private: true }],
   },
 ];

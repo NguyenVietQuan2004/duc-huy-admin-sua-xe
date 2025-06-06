@@ -17,7 +17,7 @@ export const SaleColumns: ColumnDef<Sale>[] = [
           className="cursor-pointer hover:opacity-70"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Title
+          Tiêu đề
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
@@ -33,11 +33,12 @@ export const SaleColumns: ColumnDef<Sale>[] = [
   },
   {
     accessorKey: "name",
-    header: "name",
+    header: "Loại bài",
   },
   {
     id: "actions",
     enableHiding: false,
+    header: "Hành động", // hoặc "Action" tuỳ bạn
     cell: ({ row }) => <SaleAcTion row={row.original} />,
   },
 ];

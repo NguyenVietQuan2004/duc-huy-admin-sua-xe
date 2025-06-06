@@ -17,7 +17,7 @@ export const ServiceColumns: ColumnDef<Service>[] = [
           className="cursor-pointer hover:opacity-70"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Name
+          Tên
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
@@ -32,6 +32,7 @@ export const ServiceColumns: ColumnDef<Service>[] = [
     },
   },
   {
+    header: "Hành động", // hoặc "Action" tuỳ bạn
     id: "actions",
     enableHiding: false,
     cell: ({ row }) => <BaiVietAcTion row={row.original} />,

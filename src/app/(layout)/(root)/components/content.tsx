@@ -49,12 +49,12 @@ function Content() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {/* Tổng số lượng bài viết khuyến mại */}
+          {/* Tổng số lượng bài viết khuyến mãi */}
           <Card>
             <CardContent className="p-4">
               <div className="flex justify-between items-center">
                 <div>
-                  <div className="text-lg font-semibold mb-1">Tổng số bài viết khuyến mại</div>
+                  <div className="text-lg font-semibold mb-1">Tổng số bài viết khuyến mãi</div>
                   <div className="text-sm text-gray-500">54</div>
                 </div>
                 <Gift className="text-red-500 w-6 h-6" />
