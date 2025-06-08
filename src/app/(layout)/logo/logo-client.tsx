@@ -116,7 +116,7 @@ export default function LogoClient() {
     } finally {
       setIsLoading(false); // kết thúc loading
       // Bạn có thể không reload page nếu dùng router.refresh()
-      // window.location.reload();
+      window.location.reload();
     }
   };
 
