@@ -40,7 +40,7 @@ export default function AddressClient() {
         console.log("API response:", response);
         setAddresses(data);
       } catch (error) {
-        console.error("Lỗi khi lấy danh sách địa chỉ:", error);
+        console.error("Lỗi khi lấy danh sách thông tin liên hệ:", error);
         setAddresses([]);
       }
     };
@@ -72,8 +72,8 @@ export default function AddressClient() {
       setEditingAddress(null);
       router.refresh();
     } catch (error) {
-      console.error("Lỗi khi xử lý địa chỉ:", error);
-      setSubmitError("Lỗi khi xử lý địa chỉ, vui lòng thử lại.");
+      console.error("Lỗi khi xử lý thông tin liên hệ:", error);
+      setSubmitError("Lỗi khi xử lý thông tin liên hệ, vui lòng thử lại.");
     } finally {
       setIsLoading(false);
     }
@@ -110,8 +110,8 @@ export default function AddressClient() {
       setDeletingAddress(null);
       router.refresh();
     } catch (error) {
-      console.error("Lỗi khi xóa địa chỉ:", error);
-      setSubmitError("Lỗi khi xóa địa chỉ, vui lòng thử lại.");
+      console.error("Lỗi khi xóa thông tin liên hệ:", error);
+      setSubmitError("Lỗi khi xóa thông tin liên hệ, vui lòng thử lại.");
     } finally {
       setIsLoading(false);
     }
@@ -119,19 +119,21 @@ export default function AddressClient() {
 
   return (
     <div className="mx-auto mt-6 p-6 bg-white rounded-xl shadow  ">
-      <h2 className="text-xl font-bold mb-4">{editingAddress ? "Cập nhật Địa chỉ" : "Thêm Địa chỉ mới"}</h2>
+      <h2 className="text-xl font-bold mb-4">
+        {editingAddress ? "Cập nhật thông tin liên hệ" : "Thêm thông tin liên hệ mới"}
+      </h2>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div>
           <Label htmlFor="address" className="mb-2">
-            Địa chỉ
+            Thông tin liên hệ
           </Label>
           <Textarea
             id="address"
-            placeholder="Nhập địa chỉ"
+            placeholder="Nhập thông tin liên hệ"
             disabled={isLoading}
             rows={4}
-            {...register("address", { required: "Địa chỉ là bắt buộc" })}
+            {...register("address", { required: "thông tin liên hệ là bắt buộc" })}
           />
           {errors.address && <p className="text-red-500 text-sm mt-1">{errors.address.message}</p>}
         </div>
@@ -151,9 +153,9 @@ export default function AddressClient() {
       </form>
 
       <div className="mt-6">
-        <h3 className="text-lg font-semibold mb-2">Danh sách địa chỉ</h3>
+        <h3 className="text-lg font-semibold mb-2">Danh sách thông tin liên hệ</h3>
         {addresses.length === 0 ? (
-          <p className="text-gray-500">Chưa có địa chỉ nào.</p>
+          <p className="text-gray-500">Chưa có thông tin liên hệ nào.</p>
         ) : (
           <ul className="space-y-2">
             {addresses.map((address) => (
@@ -161,7 +163,7 @@ export default function AddressClient() {
                 key={address._id || Math.random().toString(36).substring(2)}
                 className="flex justify-between items-center p-2 border rounded hover:bg-gray-100"
               >
-                <span className="line-clamp-3">{address.address || "Địa chỉ không xác định"}</span>
+                <span className="line-clamp-3">{address.address || "thông tin liên hệ không xác định"}</span>
                 <div className="flex gap-2">
                   <Button variant="link" onClick={() => handleEdit(address)} disabled={isLoading}>
                     Chỉnh sửa

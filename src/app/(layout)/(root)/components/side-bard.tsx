@@ -13,21 +13,21 @@ const menuGroups = [
       { value: "Dashboard", linkTo: "/", private: false },
 
       { value: "Logo", linkTo: "/logo", private: false },
-      { value: "Nội dung đặt lịch", linkTo: "/content-appointment", private: false },
       { value: "Lý do", linkTo: "/reason", private: false },
-      { value: "Địa chỉ ", linkTo: "/address", private: false },
       { value: "Ảnh nền", linkTo: "/banner", private: false },
       { value: "Trung tâm", linkTo: "/center", private: false },
+      { value: "Thông tin liên hệ ", linkTo: "/address", private: false },
+      { value: "Nội dung đặt lịch", linkTo: "/content-appointment", private: false },
     ],
   },
   {
     label: "DANH MỤC",
     items: [
-      { value: "Bài viết", linkTo: "/blog", private: false },
       { value: "Dịch vụ", linkTo: "/service", private: false },
-      { value: "Khuyến mãi", linkTo: "/sale", private: false },
-      { value: "Đặt lịch", linkTo: "/appointment", private: false },
       { value: "Liên hệ", linkTo: "/contact", private: false },
+      { value: "Bài viết", linkTo: "/blog", private: false },
+      { value: "Đặt lịch", linkTo: "/appointment", private: false },
+      { value: "Khuyến mãi", linkTo: "/sale", private: false },
     ],
   },
   {
