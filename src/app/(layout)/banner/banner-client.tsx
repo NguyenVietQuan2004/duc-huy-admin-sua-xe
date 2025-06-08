@@ -35,7 +35,8 @@ export default function BannerClient() {
   useEffect(() => {
     const fetchBanner = async () => {
       try {
-        const data = await bannerApi.getBanner();
+        const response = await bannerApi.getBanner();
+        const data = response[0];
         if (data && data.images?.length > 0) {
           setBanner(data);
           const files: File[] = [];
