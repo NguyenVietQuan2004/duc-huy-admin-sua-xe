@@ -13,7 +13,7 @@ export default function RootLayout({
         <Header />
 
         {/* <main className=" bg-[#e9f2f8] py-8 px-14 rounded-2xl">{children}</main> */}
-        <main className=" bg-[#f4f7fb] py-8 px-14 rounded-2xl h-full">{children}</main>
+        <main className=" bg-[#f4f7fb] py-8 px-14 rounded-2xl h-full ml-1">{children}</main>
       </div>
     </div>
   );

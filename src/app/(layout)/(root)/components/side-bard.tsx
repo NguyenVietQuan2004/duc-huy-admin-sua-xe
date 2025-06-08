@@ -9,7 +9,16 @@ import { useAppSelector } from "@/store/hook";
 const menuGroups = [
   {
     label: "TRANG CHỦ",
-    items: [{ value: "Dashboard", linkTo: "/", private: false }],
+    items: [
+      { value: "Dashboard", linkTo: "/", private: false },
+
+      { value: "Logo", linkTo: "/logo", private: false },
+      { value: "Nội dung đặt lịch", linkTo: "/content-appointment", private: false },
+      { value: "Lý do", linkTo: "/reason", private: false },
+      { value: "Địa chỉ ", linkTo: "/address", private: false },
+      { value: "Ảnh nền", linkTo: "/banner", private: false },
+      { value: "Trung tâm", linkTo: "/center", private: false },
+    ],
   },
   {
     label: "DANH MỤC",
@@ -31,7 +40,7 @@ function Sidebar() {
   const pathname = usePathname();
   const isBoss = !useAppSelector((state) => state.auth.role);
   return (
-    <aside className="col-span-2 p-4  h-[92vh] rounded-2xl overflow-y-scroll">
+    <aside className="col-span-2 p-4  h-[92vh] rounded-2xl overflow-scroll">
       <div className="text-xl font-bold text-indigo-600 mb-6">DucHuy</div>
       <nav className="flex flex-col gap-2 h-[100vh]">
         {menuGroups.map((group) => (
