@@ -22,6 +22,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning={true}>
+      <head>
+        <style>{`
+          [data-nextjs-toast="true"] {
+            display: none !important;
+            pointer-events: none !important;
+            opacity: 0 !important;
+            visibility: hidden !important;
+            z-index: -1 !important;
+          }
+        `}</style>
+      </head>
       <body className={kanit.className}>
         {/* <div className="min-h-screen  p-6 flex  gap-4">
           <Sidebar />

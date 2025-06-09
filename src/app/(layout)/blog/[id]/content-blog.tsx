@@ -15,7 +15,7 @@ type Props = {
 const ContentInput: FC<Props> = ({ setValue, watch, errors }) => {
   const editorRef = useRef<any>(null);
   const content = watch("content");
-
+  console.log(content);
   useEffect(() => {
     if (editorRef.current?.editor && content !== editorRef.current.editor.getData()) {
       editorRef.current.editor.setData(content);
@@ -30,7 +30,9 @@ const ContentInput: FC<Props> = ({ setValue, watch, errors }) => {
       <CKEditor
         ref={editorRef}
         initData={content || ""}
-        config={{}}
+        config={{
+          removePlugins: "updatehandler",
+        }}
         onChange={(event: any) => {
           const data = event.editor.getData();
           setValue("content", data, { shouldValidate: true });

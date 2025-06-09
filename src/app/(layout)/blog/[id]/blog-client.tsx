@@ -421,7 +421,7 @@ export default function BlogDetailClient({ blogId }: Props) {
   };
 
   return (
-    <div className="max-w-3xl mx-auto mt-6 p-6 bg-white shadow rounded-xl">
+    <div className=" mx-auto mt-6 p-6 bg-white shadow rounded-xl">
       <h1 className="text-xl font-bold text-indigo-600 mb-4">
         {isEditing ? "Chỉnh sửa bài viết" : "Tạo bài viết mới"}
       </h1>
@@ -439,8 +439,9 @@ export default function BlogDetailClient({ blogId }: Props) {
           <Input id="name" {...register("name")} />
         </div>
 
-        <ContentInput setValue={setValue} watch={watch} errors={errors} />
-
+        {/* <ContentInput setValue={setValue} watch={watch} errors={errors} /> */}
+        {isEditing && getValues("content") && <ContentInput setValue={setValue} watch={watch} errors={errors} />}
+        {!isEditing && <ContentInput setValue={setValue} watch={watch} errors={errors} />}
         <div>
           <Label htmlFor="images">Hình ảnh</Label>
           <Input id="images" type="file" multiple onChange={onFileChange} />
