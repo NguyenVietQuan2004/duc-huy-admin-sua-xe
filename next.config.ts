@@ -1,9 +1,21 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   images: {
-    domains: ["nhatphatauto.vn", "res.cloudinary.com"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "nhatphatauto.vn",
+        port: "",
+        pathname: "/wp-content/uploads/**", // hoặc '/**' nếu bạn muốn rộng hơn
+      },
+    ],
   },
 };
 
-export default nextConfig;
+module.exports = nextConfig;
