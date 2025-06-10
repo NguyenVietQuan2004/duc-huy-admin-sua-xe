@@ -181,25 +181,21 @@ export default function BlogDetailClient({ blogId }: Props) {
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         {isEditing && <input type="hidden" value={blog?._id} />}
-
         <div>
           <Label htmlFor="title">Tiêu đề</Label>
           <Input id="title" {...register("title", { required: true })} />
           {errors.title && <p className="text-red-500 text-sm">Bắt buộc</p>}
         </div>
-
         <div className="hidden">
           <Input id="name" {...register("name")} />
         </div>
-
-        {/* <ContentInput setValue={setValue} watch={watch} errors={errors} /> */}
         {isEditing && getValues("content") && <ContentInput setValue={setValue} watch={watch} errors={errors} />}
         {!isEditing && <ContentInput setValue={setValue} watch={watch} errors={errors} />}
+        {/* <ContentInput setValue={setValue} watch={watch} errors={errors} /> */}
         <div>
           <Label htmlFor="images">Hình ảnh</Label>
           <Input id="images" type="file" multiple onChange={onFileChange} />
         </div>
-
         <div className="space-y-2">
           {fileList.map((file, index) => (
             <div key={index} className="flex flex-col items-center border p-2 rounded relative">
@@ -229,12 +225,10 @@ export default function BlogDetailClient({ blogId }: Props) {
             </div>
           ))}
         </div>
-
         <div>
           <Label>Tác giả</Label>
           <Input value={isEditing ? blog?.author_id : adminId || ""} disabled />
         </div>
-
         {formErrors.length > 0 && (
           <div className="bg-red-100 border border-red-400 text-red-700 p-3 rounded">
             <ul className="list-disc ml-5 text-sm">
@@ -244,7 +238,6 @@ export default function BlogDetailClient({ blogId }: Props) {
             </ul>
           </div>
         )}
-
         <Button type="submit" className="mt-4">
           {isEditing ? "Lưu chỉnh sửa" : "Tạo bài viết"}
         </Button>

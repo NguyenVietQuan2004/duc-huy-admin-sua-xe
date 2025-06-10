@@ -24,15 +24,26 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning={true}>
       <head>
         <style>{`
-          [data-nextjs-toast="true"] {
-            display: none !important;
-            pointer-events: none !important;
-            opacity: 0 !important;
-            visibility: hidden !important;
-            z-index: -1 !important;
-          }
-        `}</style>
+    [data-nextjs-toast="true"] {
+      display: none !important;
+      pointer-events: none !important;
+      opacity: 0 !important;
+      visibility: hidden !important;
+      z-index: -1 !important;
+    }
+
+    figure.image,
+    figure.image.image_resized,
+    .cke_editable figure.image {
+      background: transparent !important;
+      border: none !important;
+      outline: none !important;
+      padding: 0 !important;
+      margin: 1em auto !important;
+    }
+  `}</style>
       </head>
+
       <body className={kanit.className}>
         {/* <div className="min-h-screen  p-6 flex  gap-4">
           <Sidebar />
