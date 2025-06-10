@@ -15,7 +15,7 @@ type Props = {
 const ContentInput: FC<Props> = ({ setValue, watch, errors }) => {
   const editorRef = useRef<any>(null);
   const content = watch("content");
-
+  console.log(content);
   useEffect(() => {
     if (editorRef.current?.editor && content !== editorRef.current.editor.getData()) {
       editorRef.current.editor.setData(content);
@@ -27,15 +27,33 @@ const ContentInput: FC<Props> = ({ setValue, watch, errors }) => {
       <Label className="mb-2" htmlFor="content">
         Nội dung
       </Label>
+      {/* <CKEditor
+          ref={editorRef}
+          initData={content || ""}
+          config={{
+            removePlugins: "updatehandler",
+          }}
+          onChange={(event: any) => {
+            const data = event.editor.getData();
+            setValue("content", data, { shouldValidate: true });
+          }}
+        /> */}
       <CKEditor
         ref={editorRef}
         initData={content || ""}
-        config={{}}
+        config={{
+          removePlugins: "updatehandler",
+          filebrowserUploadUrl: "/api/upload", // route backend để nhận file upload
+          filebrowserUploadMethod: "xhr", // hoặc "xhr"
+
+          removeDialogTabs: "image:advanced;link:advanced;image:Link",
+        }}
         onChange={(event: any) => {
           const data = event.editor.getData();
           setValue("content", data, { shouldValidate: true });
         }}
       />
+
       {errors.content && <p className="text-red-500 text-sm">Bắt buộc</p>}
     </div>
   );

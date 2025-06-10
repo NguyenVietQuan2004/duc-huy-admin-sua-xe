@@ -26,7 +26,7 @@
 //   const adminId = useAppSelector((state) => state.auth.adminId);
 //   const router = useRouter();
 
-//   // State lưu file ảnh (file gốc từ URL + file chọn mới)
+//   // State lưu file ảnh (file góc từ URL + file chọn mới)
 //   const [fileList, setFileList] = useState<File[]>([]);
 
 //   const {
@@ -216,12 +216,12 @@ import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import ContentInput from "./content-service";
 import { useEffect, useState } from "react";
 import { useAppSelector } from "@/store/hook";
 import { serviceApi } from "@/api-request/serviceAPI";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import ContentInput from "@/components/content-blog";
 
 type Props = {
   serviceId: string;
@@ -237,7 +237,7 @@ export default function ServiceDetailClient({ serviceId }: Props) {
   const adminId = useAppSelector((state) => state.auth.adminId);
   const router = useRouter();
 
-  // State lưu file ảnh (file gốc từ URL + file chọn mới)
+  // State lưu file ảnh (file góc từ URL + file chọn mới)
   const [fileList, setFileList] = useState<File[]>([]);
 
   // State lỗi cho images và content
