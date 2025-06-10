@@ -15,7 +15,6 @@ type Props = {
 const ContentInput: FC<Props> = ({ setValue, watch, errors }) => {
   const editorRef = useRef<any>(null);
   const content = watch("content");
-  console.log(content);
   useEffect(() => {
     if (editorRef.current?.editor && content !== editorRef.current.editor.getData()) {
       editorRef.current.editor.setData(content);

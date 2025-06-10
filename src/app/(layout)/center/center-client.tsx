@@ -36,7 +36,6 @@ export default function CenterClient() {
     const fetchCenteres = async () => {
       try {
         const response = await centerApi.getCenters();
-        console.log("API response:", response);
         const data = Array.isArray(response) ? response : response.data || [];
         setCenteres(data);
       } catch (error) {
@@ -65,7 +64,6 @@ export default function CenterClient() {
         );
       } else {
         const newCenter = await centerApi.createCenter({ data: payload, headers });
-        console.log(newCenter);
         setCenteres((prev) => [...prev, newCenter.center]);
       }
 

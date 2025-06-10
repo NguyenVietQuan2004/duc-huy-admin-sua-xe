@@ -37,7 +37,6 @@ export default function AddressClient() {
       try {
         const response = await addressApi.getAddresses();
         const data = Array.isArray(response) ? response : response.data || [];
-        console.log("API response:", response);
         setAddresses(data);
       } catch (error) {
         console.error("Lỗi khi lấy danh sách thông tin liên hệ:", error);

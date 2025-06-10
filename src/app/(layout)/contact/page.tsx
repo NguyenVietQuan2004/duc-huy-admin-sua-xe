@@ -24,7 +24,6 @@ export default function ContactPage() {
     };
     fetchAPI();
   }, [token]);
-  console.log(contacts);
   return (
     <div>
       {/* <ButtonAddNew linkTo="contact" /> */}

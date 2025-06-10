@@ -20,7 +20,6 @@ export default function BlogPage() {
           Authorization: `Bearer ${token}`, // Gắn token vào header Authorization
         },
       });
-      console.log(blogs);
       setBlogs(blogs.data);
     };
     fetchAPI();

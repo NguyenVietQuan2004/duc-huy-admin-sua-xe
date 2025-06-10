@@ -18,7 +18,6 @@ export default function AppointmentPage() {
           Authorization: `Bearer ${token}`, // Gắn token vào header Authorization
         },
       });
-      console.log(appointments);
       setAppointments(appointments.data);
     };
     fetchAPI();

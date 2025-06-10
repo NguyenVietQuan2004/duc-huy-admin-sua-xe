@@ -54,7 +54,6 @@ export default function LoginPage() {
 
       router.push("/");
     } catch (error) {
-      console.log(error);
       form.setError("email", { type: "manual", message: "Thông tin tài khoản hoặc mật khẩu không chính xác" });
     } finally {
       setIsLoading(false);

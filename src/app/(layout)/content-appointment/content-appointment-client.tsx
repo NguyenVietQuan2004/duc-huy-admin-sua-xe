@@ -22,7 +22,6 @@ export default function ContentAppointmentClient() {
   const token = useAppSelector((state) => state.auth.token);
   const router = useRouter();
   const adminId = useAppSelector((state) => state.auth.adminId);
-  console.log(adminId);
   const [fileList, setFileList] = useState<File[]>([]);
   const [contentData, setContentData] = useState<ContentAppointmentType | null>(null);
   const [submitError, setSubmitError] = useState<string | null>(null);

@@ -91,7 +91,6 @@ export default function AccountDetailClient({ accountId }: Props) {
           headers,
           body: { name, email, password },
         });
-        console.log("Account updated:", res);
       } catch (err) {
         console.error("Update failed:", err);
       }
@@ -101,10 +100,7 @@ export default function AccountDetailClient({ accountId }: Props) {
           headers,
           body: { name, email, password },
         });
-        console.log("Account created:", res);
-      } catch (err) {
-        console.error("Create failed:", err);
-      }
+      } catch (err) {}
     }
 
     router.push("/account");
