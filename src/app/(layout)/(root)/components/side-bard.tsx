@@ -46,6 +46,7 @@ function Sidebar() {
   const toggleGroup = (groupKey: string) => {
     setOpenGroups((prev) => ({ ...prev, [groupKey]: !prev[groupKey] }));
   };
+  const contentRef = useRef<HTMLDivElement>(null);
 
   return (
     <aside className="hidden xl:block w-[260px] p-4 h-[92vh] rounded-2xl overflow-scroll">
@@ -66,7 +67,6 @@ function Sidebar() {
 
           const groupKey = group.label + "_hiển_thị";
           const isOpen = openGroups[groupKey];
-          const contentRef = useRef<HTMLDivElement>(null);
 
           return (
             <div key={group.label}>
