@@ -19,7 +19,7 @@ type AccountForm = Omit<Account, "created_at" | "updated_at"> & { password: stri
 export default function AccountDetailClient({ accountId }: Props) {
   const [account, setAccount] = useState<Account | null>(null);
   const token = useAppSelector((state) => state.auth.token);
-
+  console.log(account);
   const {
     register,
     handleSubmit,
@@ -46,9 +46,11 @@ export default function AccountDetailClient({ accountId }: Props) {
           email: "",
           password: "",
         });
+        console.log(2);
+
         return;
       }
-
+      console.log(1);
       try {
         const headers = { Authorization: `Bearer ${token}` };
         const fetchedAccount = await authApi.getAdminById({
