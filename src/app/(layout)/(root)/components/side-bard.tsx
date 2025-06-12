@@ -4,6 +4,12 @@ import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from "@/components/ui/dropdown-menu";
 import { useAppSelector } from "@/store/hook";
 
 const menuGroups = [
@@ -12,12 +18,15 @@ const menuGroups = [
     items: [
       { value: "Dashboard", linkTo: "/", private: false },
 
-      { value: "Logo", linkTo: "/logo", private: false },
-      { value: "Lý do", linkTo: "/reason", private: false },
-      { value: "Ảnh nền", linkTo: "/banner", private: false },
-      { value: "Trung tâm", linkTo: "/center", private: false },
-      { value: "Thông tin liên hệ ", linkTo: "/address", private: false },
-      { value: "Nội dung đặt lịch", linkTo: "/content-appointment", private: false },
+      // Gom nhóm hiển thị vào 1 dropdown
+      { value: "Logo", linkTo: "/logo", group: "Hiển thị", private: false },
+      { value: "Lý do", linkTo: "/reason", group: "Hiển thị", private: false },
+      { value: "Ảnh nền", linkTo: "/banner", group: "Hiển thị", private: false },
+      { value: "Trung tâm", linkTo: "/center", group: "Hiển thị", private: false },
+      { value: "Giới thiệu", linkTo: "/intro", group: "Hiển thị", private: false },
+      { value: "Poster các trang", linkTo: "/poster", group: "Hiển thị", private: false },
+      { value: "Thông tin liên hệ", linkTo: "/address", group: "Hiển thị", private: false },
+      { value: "Nội dung đặt lịch", linkTo: "/content-appointment", group: "Hiển thị", private: false },
     ],
   },
   {
@@ -39,33 +48,81 @@ const menuGroups = [
 function Sidebar() {
   const pathname = usePathname();
   const isBoss = !useAppSelector((state) => state.auth.role);
+
   return (
-    <aside className="col-span-2 p-4  h-[92vh] rounded-2xl overflow-scroll">
+    <aside className="hidden xl:block w-[260px] p-4 h-[92vh] rounded-2xl overflow-scroll">
       <div className="text-xl font-bold text-indigo-600 mb-6">DucHuy</div>
       <nav className="flex flex-col gap-2 h-[100vh]">
-        {menuGroups.map((group) => (
-          <div key={group.label}>
-            <div className="mt-4 text-xs text-gray-500">{group.label}</div>
-            {group.items.map((item) => {
-              const isActive = pathname === item.linkTo;
+        {menuGroups.map((group) => {
+          const groupedItems = group.items.reduce(
+            (acc, item) => {
+              if (item.group) {
+                acc.grouped.push(item);
+              } else {
+                acc.ungrouped.push(item);
+              }
+              return acc;
+            },
+            { grouped: [] as typeof group.items, ungrouped: [] as typeof group.items }
+          );
 
-              return (
-                <Link href={item.linkTo} key={item.value} className={`    ${item.private && !isBoss && "hidden"} `}>
-                  <Button
-                    variant="ghost"
-                    className={`justify-start cursor-pointer transition-all duration-200 w-full mt-2 font-light ${
-                      isActive
-                        ? "bg-[#635bff] text-white shadow-[0_15px_20px_-8px_rgba(77,91,236,0.231)] hover:bg-[#635bff] hover:text-white"
-                        : "hover:bg-indigo-100 hover:text-indigo-600"
-                    }`}
-                  >
-                    {item.value}
-                  </Button>
-                </Link>
-              );
-            })}
-          </div>
-        ))}
+          return (
+            <div key={group.label}>
+              <div className="mt-4 text-xs text-gray-500">{group.label}</div>
+
+              {/* Hiển thị các item không thuộc nhóm */}
+              {groupedItems.ungrouped.map((item) => {
+                const isActive = pathname === item.linkTo;
+                return (
+                  <Link href={item.linkTo} key={item.value} className={`${item.private && !isBoss ? "hidden" : ""}`}>
+                    <Button
+                      variant="ghost"
+                      className={`justify-start w-full mt-2 font-light transition-all ${
+                        isActive
+                          ? "bg-[#635bff] text-white shadow hover:bg-[#635bff]"
+                          : "hover:bg-indigo-100 hover:text-indigo-600"
+                      }`}
+                    >
+                      {item.value}
+                    </Button>
+                  </Link>
+                );
+              })}
+
+              {/* Dropdown cho các mục thuộc nhóm "Hiển thị" */}
+              {groupedItems.grouped.length > 0 && (
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      className="justify-start w-full mt-2 font-light hover:bg-indigo-100 hover:text-indigo-600"
+                    >
+                      Trang hiển thị
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="w-56">
+                    {groupedItems.grouped.map((item) => {
+                      const isActive = pathname === item.linkTo;
+                      return (
+                        <Link
+                          href={item.linkTo}
+                          key={item.value}
+                          className={`${item.private && !isBoss ? "hidden" : ""}`}
+                        >
+                          <DropdownMenuItem
+                            className={`cursor-pointer ${isActive ? "bg-indigo-100 text-indigo-600" : ""}`}
+                          >
+                            {item.value}
+                          </DropdownMenuItem>
+                        </Link>
+                      );
+                    })}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              )}
+            </div>
+          );
+        })}
       </nav>
     </aside>
   );

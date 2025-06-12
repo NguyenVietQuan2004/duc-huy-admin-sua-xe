@@ -9,7 +9,7 @@ import { useEffect, useState, useRef } from "react";
 import { useAppSelector } from "@/store/hook";
 import { useRouter } from "next/navigation";
 import { Banner } from "@/type/banner";
-import { bannerApi } from "@/api-request/banner";
+import { bannerApi } from "@/api-request/bannerAPI";
 
 type BannerForm = {
   images: FileList;

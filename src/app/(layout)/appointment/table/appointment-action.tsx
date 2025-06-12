@@ -13,16 +13,14 @@ import {
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import AlertModal from "@/components/alert-modal";
-import { Blog } from "@/type/blog";
 import { Appointment } from "@/type/appointment";
-import { appointmentApi } from "@/api-request/appointment";
+import { appointmentApi } from "@/api-request/appointmentAPI";
 import { useAppSelector } from "@/store/hook";
 interface CellActionProps {
   row: Appointment;
 }
 function AppointmentAction({ row }: CellActionProps) {
   const [open, setOpen] = useState(false);
-  // const [isLoading, setIsLoading] = useState(false);
   const token = useAppSelector((state) => state.auth.token);
 
   const headers = {

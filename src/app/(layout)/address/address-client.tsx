@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { useAppSelector } from "@/store/hook";
 import { useRouter } from "next/navigation";
 import { Address } from "@/type/address";
-import { addressApi } from "@/api-request/address";
+import { addressApi } from "@/api-request/addressAPI";
 import AlertModal from "@/components/alert-modal";
 import { Textarea } from "@/components/ui/textarea";
 
@@ -160,10 +160,12 @@ export default function AddressClient() {
             {addresses.map((address) => (
               <li
                 key={address._id || Math.random().toString(36).substring(2)}
-                className="flex justify-between items-center p-2 border rounded hover:bg-gray-100"
+                className="flex justify-between flex-wrap items-center p-2 border rounded hover:bg-gray-100"
               >
-                <span className="line-clamp-3">{address.address || "thông tin liên hệ không xác định"}</span>
-                <div className="flex gap-2">
+                <span className="line-clamp-3 border-b w-full text-center xl:border-none xl:w-auto xl:text-start">
+                  {address.address || "thông tin liên hệ không xác định"}
+                </span>
+                <div className="flex gap-2 w-full xl:w-auto justify-center xl:justify-start">
                   <Button variant="link" onClick={() => handleEdit(address)} disabled={isLoading}>
                     Chỉnh sửa
                   </Button>

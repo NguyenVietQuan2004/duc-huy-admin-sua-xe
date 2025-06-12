@@ -1,9 +1,8 @@
 "use client";
 import ButtonAddNew from "@/components/button-add-new";
 import { DataTable } from "@/components/data-table";
-import { Blog } from "@/type/blog";
 import { BlogColumns } from "./table/blog-columns";
-import { blogApi } from "@/api-request/blogApi";
+import { blogApi } from "@/api-request/blogAPI";
 import { useEffect, useState } from "react";
 import { useAppSelector } from "@/store/hook";
 

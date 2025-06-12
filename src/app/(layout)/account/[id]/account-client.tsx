@@ -86,7 +86,7 @@ export default function AccountDetailClient({ accountId }: Props) {
 
     if (isEditing) {
       try {
-        const res = await authApi.updateAdmin({
+        await authApi.updateAdmin({
           _id,
           headers,
           body: { name, email, password },
@@ -96,7 +96,7 @@ export default function AccountDetailClient({ accountId }: Props) {
       }
     } else {
       try {
-        const res = await authApi.createAdmin({
+        await authApi.createAdmin({
           headers,
           body: { name, email, password },
         });

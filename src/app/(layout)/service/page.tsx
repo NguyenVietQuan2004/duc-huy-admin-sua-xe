@@ -2,7 +2,6 @@
 import ButtonAddNew from "@/components/button-add-new";
 import { DataTable } from "@/components/data-table";
 import { ServiceColumns } from "./table/service-columns";
-import { Service } from "@/type/service";
 import { useEffect, useState } from "react";
 import { useAppSelector } from "@/store/hook";
 import { serviceApi } from "@/api-request/serviceAPI";

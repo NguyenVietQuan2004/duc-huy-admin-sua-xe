@@ -22,7 +22,6 @@ interface CellActionProps {
 }
 function AccountAction({ row }: CellActionProps) {
   const [open, setOpen] = useState(false);
-  // const [isLoading, setIsLoading] = useState(false);
   const token = useAppSelector((state) => state.auth.token);
 
   const headers = {
@@ -48,7 +47,6 @@ function AccountAction({ row }: CellActionProps) {
         action="Xóa"
         variant="destructive"
         onConfirm={handleDeleteProduct}
-        // isLoading={isLoading}
       />
       <DropdownMenu>
         <DropdownMenuTrigger asChild>

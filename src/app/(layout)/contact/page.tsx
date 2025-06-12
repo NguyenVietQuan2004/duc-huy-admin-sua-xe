@@ -1,8 +1,6 @@
 "use client";
-import ButtonAddNew from "@/components/button-add-new";
 import { ContactColumns } from "./table/contact-columns";
 import { DataTable } from "@/components/data-table";
-import { Contact } from "@/type/contact";
 import { useEffect, useState } from "react";
 import { useAppSelector } from "@/store/hook";
 import { contactApi } from "@/api-request/contactAPI";
@@ -26,7 +24,6 @@ export default function ContactPage() {
   }, [token]);
   return (
     <div>
-      {/* <ButtonAddNew linkTo="contact" /> */}
       <div>
         <DataTable columns={ContactColumns} data={contacts} filterField="full_name" />
       </div>

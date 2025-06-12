@@ -1,5 +1,5 @@
 "use client";
-import { appointmentApi } from "@/api-request/appointment";
+import { appointmentApi } from "@/api-request/appointmentAPI";
 import { AppointmentColumns } from "./table/appointment-columns";
 import { DataTable } from "@/components/data-table";
 import { useAppSelector } from "@/store/hook";

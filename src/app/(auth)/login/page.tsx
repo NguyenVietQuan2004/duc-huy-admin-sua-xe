@@ -7,7 +7,6 @@ import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { authApi } from "../../../api-request/authAPI";
 import { useAppDispatch } from "@/store/hook";
@@ -97,23 +96,6 @@ export default function LoginPage() {
                 </FormItem>
               )}
             />
-            {/* <div className="flex items-center justify-between">
-              <FormField
-                control={form.control}
-                name="remember"
-                render={({ field }) => (
-                  <FormItem className="flex items-center space-x-2">
-                    <Checkbox checked={field.value} onCheckedChange={field.onChange} id="remember" />
-                    <Label htmlFor="remember" className="text-sm font-normal">
-                      Remember this Device
-                    </Label>
-                  </FormItem>
-                )}
-              />
-              <Link href="#" className="text-sm text-indigo-500 hover:underline">
-                Forgot Password ?
-              </Link>
-            </div> */}
             <Button disabled={isLoading} type="submit" className="w-full bg-indigo-500 hover:bg-indigo-600">
               {isLoading ? <Loader className="animate-spin" /> : "Sign in"}
             </Button>
