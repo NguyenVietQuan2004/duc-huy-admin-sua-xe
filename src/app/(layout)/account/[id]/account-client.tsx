@@ -19,11 +19,12 @@ type AccountForm = Omit<Account, "created_at" | "updated_at"> & { password: stri
 export default function AccountDetailClient({ accountId }: Props) {
   const [account, setAccount] = useState<Account | null>(null);
   const token = useAppSelector((state) => state.auth.token);
-  console.log(account);
+  console.log(account, "dsjkhasjk", accountId, token);
   const {
     register,
     handleSubmit,
     reset,
+    getValues,
     formState: { errors },
   } = useForm<AccountForm>({
     defaultValues: {
@@ -33,6 +34,7 @@ export default function AccountDetailClient({ accountId }: Props) {
       password: "",
     },
   });
+  console.log(getValues());
 
   const isEditing = Boolean(account && account._id);
 

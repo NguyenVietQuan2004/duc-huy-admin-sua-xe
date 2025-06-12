@@ -1,15 +1,10 @@
 "use client";
 
-import React from "react";
+import React, { useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuItem,
-} from "@/components/ui/dropdown-menu";
+import { ChevronDown, ChevronRight } from "lucide-react";
 import { useAppSelector } from "@/store/hook";
 
 const menuGroups = [
@@ -17,8 +12,6 @@ const menuGroups = [
     label: "TRANG CHỦ",
     items: [
       { value: "Dashboard", linkTo: "/", private: false },
-
-      // Gom nhóm hiển thị vào 1 dropdown
       { value: "Logo", linkTo: "/logo", group: "Hiển thị", private: false },
       { value: "Lý do", linkTo: "/reason", group: "Hiển thị", private: false },
       { value: "Ảnh nền", linkTo: "/banner", group: "Hiển thị", private: false },
@@ -48,6 +41,11 @@ const menuGroups = [
 function Sidebar() {
   const pathname = usePathname();
   const isBoss = !useAppSelector((state) => state.auth.role);
+  const [openGroups, setOpenGroups] = useState<{ [key: string]: boolean }>({});
+
+  const toggleGroup = (groupKey: string) => {
+    setOpenGroups((prev) => ({ ...prev, [groupKey]: !prev[groupKey] }));
+  };
 
   return (
     <aside className="hidden xl:block w-[260px] p-4 h-[92vh] rounded-2xl overflow-scroll">
@@ -66,11 +64,15 @@ function Sidebar() {
             { grouped: [] as typeof group.items, ungrouped: [] as typeof group.items }
           );
 
+          const groupKey = group.label + "_hiển_thị";
+          const isOpen = openGroups[groupKey];
+          const contentRef = useRef<HTMLDivElement>(null);
+
           return (
             <div key={group.label}>
               <div className="mt-4 text-xs text-gray-500">{group.label}</div>
 
-              {/* Hiển thị các item không thuộc nhóm */}
+              {/* Mục không thuộc nhóm */}
               {groupedItems.ungrouped.map((item) => {
                 const isActive = pathname === item.linkTo;
                 return (
@@ -89,36 +91,48 @@ function Sidebar() {
                 );
               })}
 
-              {/* Dropdown cho các mục thuộc nhóm "Hiển thị" */}
+              {/* Mục thuộc nhóm "Hiển thị" */}
               {groupedItems.grouped.length > 0 && (
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button
-                      variant="ghost"
-                      className="justify-start w-full mt-2 font-light hover:bg-indigo-100 hover:text-indigo-600"
-                    >
-                      Trang hiển thị
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className="w-56">
-                    {groupedItems.grouped.map((item) => {
-                      const isActive = pathname === item.linkTo;
-                      return (
-                        <Link
-                          href={item.linkTo}
-                          key={item.value}
-                          className={`${item.private && !isBoss ? "hidden" : ""}`}
-                        >
-                          <DropdownMenuItem
-                            className={`cursor-pointer ${isActive ? "bg-indigo-100 text-indigo-600" : ""}`}
+                <div>
+                  <Button
+                    variant="ghost"
+                    onClick={() => toggleGroup(groupKey)}
+                    className="justify-between w-full mt-2 font-light hover:bg-indigo-100 hover:text-indigo-600 flex items-center"
+                  >
+                    <span>Trang hiển thị</span>
+                    {isOpen ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
+                  </Button>
+
+                  {/* Hiệu ứng trượt */}
+                  <div
+                    ref={contentRef}
+                    className={`transition-all duration-500 ease-in-out overflow-hidden ${
+                      isOpen ? "max-h-[500px]" : "max-h-0"
+                    }`}
+                  >
+                    <div className="ml-4 mt-2 flex flex-col gap-1">
+                      {groupedItems.grouped.map((item) => {
+                        const isActive = pathname === item.linkTo;
+                        return (
+                          <Link
+                            href={item.linkTo}
+                            key={item.value}
+                            className={`${item.private && !isBoss ? "hidden" : ""}`}
                           >
-                            {item.value}
-                          </DropdownMenuItem>
-                        </Link>
-                      );
-                    })}
-                  </DropdownMenuContent>
-                </DropdownMenu>
+                            <Button
+                              variant="ghost"
+                              className={`justify-start w-full font-light ${
+                                isActive ? "bg-indigo-100 text-indigo-600" : "hover:bg-indigo-100 hover:text-indigo-600"
+                              }`}
+                            >
+                              {item.value}
+                            </Button>
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
               )}
             </div>
           );
