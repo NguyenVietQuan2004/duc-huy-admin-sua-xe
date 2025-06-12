@@ -57,6 +57,7 @@ export default function AccountDetailClient({ accountId }: Props) {
           _id: accountId,
           headers,
         });
+        console.log(3);
         setAccount(fetchedAccount);
         reset({
           ...fetchedAccount,
