@@ -2,9 +2,9 @@
 import ButtonAddNew from "@/components/button-add-new";
 import { DataTable } from "@/components/data-table";
 import { BlogColumns } from "./table/blog-columns";
-import { blogApi } from "@/api-request/blogAPI";
 import { useEffect, useState } from "react";
 import { useAppSelector } from "@/store/hook";
+import { blogApi } from "@/api-request/concuaapi";
 
 export default function BlogPage() {
   const [blogs, setBlogs] = useState([]);

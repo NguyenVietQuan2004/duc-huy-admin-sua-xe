@@ -7,7 +7,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useEffect, useRef, useState } from "react";
 import { useAppSelector } from "@/store/hook";
-import { blogApi } from "@/api-request/blogAPI";
+import { blogApi } from "@/api-request/concuaapi";
+
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import ContentInput from "@/components/content-blog";

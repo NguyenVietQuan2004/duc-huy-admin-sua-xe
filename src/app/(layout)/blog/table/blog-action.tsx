@@ -15,7 +15,7 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import AlertModal from "@/components/alert-modal";
 import { Blog } from "@/type/blog";
-import { blogApi } from "@/api-request/blogAPI";
+import { blogApi } from "@/api-request/concuaapi";
 import { useAppSelector } from "@/store/hook";
 interface CellActionProps {
   row: Blog;
