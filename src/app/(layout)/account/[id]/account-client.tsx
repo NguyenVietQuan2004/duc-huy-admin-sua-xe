@@ -127,7 +127,7 @@ export default function AccountDetailClient({ accountId }: Props) {
         {isEditing ? "Chỉnh sửa tài khoản" : "Tạo tài khoản mới"}
       </h1>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" autoComplete="off">
         <input type="hidden" {...register("_id")} />
 
         {/* Name */}
@@ -136,6 +136,7 @@ export default function AccountDetailClient({ accountId }: Props) {
             Họ tên
           </Label>
           <Input
+            autoComplete="off"
             id="name"
             type="text"
             {...register("name", {
@@ -155,6 +156,7 @@ export default function AccountDetailClient({ accountId }: Props) {
             Email
           </Label>
           <Input
+            autoComplete="off"
             id="email"
             type="email"
             {...register("email", {
@@ -174,6 +176,7 @@ export default function AccountDetailClient({ accountId }: Props) {
             Mật khẩu {isEditing ? "(bỏ trống nếu không đổi)" : ""}
           </Label>
           <Input
+            autoComplete="off"
             id="password"
             type="password"
             {...register("password", {
