@@ -3,7 +3,6 @@ import { Kanit } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import { Providers } from "./provider";
-import PageTransitionLoading from "@/components/loading-ui";
 
 const kanit = Kanit({
   subsets: ["latin"],
