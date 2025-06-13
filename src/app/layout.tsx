@@ -56,7 +56,7 @@ export default function RootLayout({
         <Providers>
           {children}
 
-          <PageTransitionLoading />
+          {/* <PageTransitionLoading /> */}
         </Providers>
         <Toaster />
       </body>
