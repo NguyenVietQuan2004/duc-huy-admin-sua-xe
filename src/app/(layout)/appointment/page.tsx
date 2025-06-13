@@ -1,33 +1,11 @@
-"use client";
-import { appointmentApi } from "@/api-request/appointmentAPI";
-import { AppointmentColumns } from "./table/appointment-columns";
-import { DataTable } from "@/components/data-table";
-import { useAppSelector } from "@/store/hook";
-import { useEffect, useState } from "react";
+import AppointmentClient from "./appointment-client";
 
-export default function AppointmentPage() {
-  const [appointments, setAppointments] = useState([]);
-  const token = useAppSelector((state) => state.auth.token);
-  useEffect(() => {
-    const fetchAPI = async () => {
-      const appointments = await appointmentApi.getAllAppointments({
-        limit: 100,
-        page: 1,
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // Gắn token vào header Authorization
-        },
-      });
-      setAppointments(appointments.data);
-    };
-    fetchAPI();
-  }, [token]);
-
+function Appointment() {
   return (
     <div>
-      <div>
-        <DataTable columns={AppointmentColumns} data={appointments} filterField="full_name" />
-      </div>
+      <AppointmentClient />
     </div>
   );
 }
+
+export default Appointment;
