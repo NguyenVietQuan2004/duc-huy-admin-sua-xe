@@ -1,35 +1,35 @@
 import httpRequest from "@/lib/http";
 
 export const priceServiceApi = {
-  // GET /api/admin/table
+  // GET /api/admin/price-services
   getAll() {
-    return httpRequest.get<any>(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/admin/table`);
+    return httpRequest.get<any>(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/admin/price-services`);
   },
 
-  // GET /api/admin/table/:id
+  // GET /api/admin/price-services/:id
   getById(_id: string) {
-    return httpRequest.get<any>(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/admin/table/${_id}`);
+    return httpRequest.get<any>(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/admin/price-services/${_id}`);
   },
 
-  // POST /api/admin/table
+  // POST /api/admin/price-services
   create({ data, headers }: { data: any; headers: HeadersInit }) {
-    return httpRequest.post<any>(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/admin/table`, {
+    return httpRequest.post<any>(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/admin/price-services`, {
       headers,
       body: data,
     });
   },
 
-  // PATCH /api/admin/table
+  // PATCH /api/admin/price-services
   update({ data, headers }: { data: any; headers: HeadersInit }) {
-    return httpRequest.patch<any>(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/admin/table`, {
+    return httpRequest.patch<any>(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/admin/price-services`, {
       headers,
       body: data,
     });
   },
 
-  // DELETE /api/admin/table/:id
+  // DELETE /api/admin/price-services/:id
   delete({ _id, headers }: { _id: string; headers: HeadersInit }) {
-    return httpRequest.delete<any>(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/admin/table/${_id}`, {
+    return httpRequest.delete<any>(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/admin/price-services/${_id}`, {
       headers,
     });
   },

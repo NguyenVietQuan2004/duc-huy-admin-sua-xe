@@ -4,7 +4,6 @@ import { Button } from "./ui/button";
 
 function ButtonAddNew({ linkTo }: { linkTo: string }) {
   const router = useRouter();
-
   return (
     <Button
       variant={"destructive"}

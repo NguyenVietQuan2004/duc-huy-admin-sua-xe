@@ -17,6 +17,7 @@ import AlertModal from "@/components/alert-modal";
 import { Blog } from "@/type/blog";
 import { blogApi } from "@/api-request/concuaapi";
 import { useAppSelector } from "@/store/hook";
+import Link from "next/link";
 interface CellActionProps {
   row: Blog;
 }
@@ -60,7 +61,10 @@ function BlogAction({ row }: CellActionProps) {
         <DropdownMenuContent align="end">
           <DropdownMenuItem onClick={onCopy}>Copy ID</DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => router.push(`/blog/${row._id}`)}>Update</DropdownMenuItem>
+          {/* <DropdownMenuItem onClick={() => router.push(`/blog/${row._id}`)}> */}
+          <DropdownMenuItem>
+            <Link href={`/blog/${row._id}`}>Update</Link>
+          </DropdownMenuItem>
           <DropdownMenuItem onClick={() => setOpen(true)}>Delete</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
