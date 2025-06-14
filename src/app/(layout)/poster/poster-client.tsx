@@ -10,6 +10,7 @@ import { useAppSelector } from "@/store/hook";
 import { useRouter } from "next/navigation";
 import { PosterType } from "@/type/poster";
 import { posterApi } from "@/api-request/posterAPI";
+import { toast } from "sonner";
 
 type PosterForm = {
   images_intro: FileList;
@@ -178,6 +179,7 @@ export default function PosterClient() {
       } else {
         await posterApi.createPoster({ formData, headers });
       }
+      toast.success("Thao tác thành công");
 
       router.refresh();
     } catch (error) {

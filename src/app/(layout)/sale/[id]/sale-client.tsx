@@ -11,6 +11,7 @@ import { saleApi } from "@/api-request/saleAPI";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import ContentInput from "@/components/content-blog";
+import { toast } from "sonner";
 
 type Props = {
   saleId: string;
@@ -174,6 +175,9 @@ export default function SaleDetailClient({ saleId }: Props) {
       } else {
         await saleApi.createSale({ formData, headers });
       }
+
+      toast.success("Thao tác thành công");
+
       router.push("/sale");
       router.refresh();
     } catch (error) {

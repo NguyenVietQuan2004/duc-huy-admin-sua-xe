@@ -12,6 +12,7 @@ import { blogApi } from "@/api-request/concuaapi";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import ContentInput from "@/components/content-blog";
+import { toast } from "sonner";
 
 type Props = {
   blogId: string;
@@ -166,7 +167,7 @@ export default function BlogDetailClient({ blogId }: Props) {
       } else {
         await blogApi.createBlog({ formData, headers });
       }
-
+      toast.success("Thao tác thành công");
       router.push("/blog");
       router.refresh();
     } catch (error) {

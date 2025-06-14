@@ -11,6 +11,7 @@ import { serviceApi } from "@/api-request/serviceAPI";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import ContentInput from "@/components/content-blog";
+import { toast } from "sonner";
 
 type Props = {
   serviceId: string;
@@ -188,6 +189,7 @@ export default function ServiceDetailClient({ serviceId }: Props) {
       } else {
         await serviceApi.createService({ formData, headers });
       }
+      toast.success("Thao tác thành công");
       router.push("/service");
       router.refresh();
     } catch (error) {

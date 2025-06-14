@@ -11,6 +11,7 @@ import { useAppSelector } from "@/store/hook";
 import { useRouter } from "next/navigation";
 import { Reason } from "@/type/reason";
 import { reasonApi } from "@/api-request/reasonAPI";
+import { toast } from "sonner";
 
 type ReasonForm = {
   title: string;
@@ -114,6 +115,7 @@ export default function ReasonClient() {
       } else {
         await reasonApi.createReason({ formData, headers });
       }
+      toast.success("Thao tác thành công");
       router.refresh();
     } catch (error) {
       console.error("Lỗi khi xử lý lý do", error);

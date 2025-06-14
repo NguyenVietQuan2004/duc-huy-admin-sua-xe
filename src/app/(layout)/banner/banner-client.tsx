@@ -10,6 +10,7 @@ import { useAppSelector } from "@/store/hook";
 import { useRouter } from "next/navigation";
 import { Banner } from "@/type/banner";
 import { bannerApi } from "@/api-request/bannerAPI";
+import { toast } from "sonner";
 
 interface BannerForm {
   images: FileList;
@@ -110,8 +111,9 @@ export default function BannerClient() {
       } else {
         await bannerApi.createBanner({ formData, headers });
       }
+      toast.success("Thao tác thành công");
 
-      // router.refresh();
+      router.refresh();
     } catch (error) {
       console.error("Upload banner thất bại", error);
       setSubmitError("Upload banner thất bại, vui lòng thử lại.");

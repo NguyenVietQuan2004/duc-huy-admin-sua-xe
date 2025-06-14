@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { useAppSelector } from "@/store/hook";
 import { authApi } from "@/api-request/authAPI";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 type Props = {
   accountId?: string | null; // ID tài khoản hoặc "new"
@@ -96,6 +97,7 @@ export default function AccountDetailClient({ accountId }: Props) {
           headers,
           body: { name, email, password },
         });
+        toast.success("Sửa thành công");
       } catch (err) {
         console.error("Update failed:", err);
       }
@@ -105,6 +107,7 @@ export default function AccountDetailClient({ accountId }: Props) {
           headers,
           body: { name, email, password },
         });
+        toast.success("Tạo mới thành công");
       } catch (err) {}
     }
 

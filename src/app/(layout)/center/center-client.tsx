@@ -10,6 +10,7 @@ import { Center } from "@/type/center";
 import { centerApi } from "@/api-request/centerAPI";
 import AlertModal from "@/components/alert-modal";
 import { Textarea } from "@/components/ui/textarea";
+import { toast } from "sonner";
 
 type CenterForm = {
   center: string;
@@ -107,6 +108,8 @@ export default function CenterClient() {
       setOpen(false);
       setDeletingCenter(null);
       router.refresh();
+
+      toast.success("Thao tác thành công");
     } catch (error) {
       console.error("Lỗi khi xóa trung tâm:", error);
       setSubmitError("Lỗi khi xóa trung tâm, vui lòng thử lại.");

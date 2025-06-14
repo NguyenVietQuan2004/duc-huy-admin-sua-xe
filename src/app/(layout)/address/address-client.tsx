@@ -10,6 +10,7 @@ import { Address } from "@/type/address";
 import { addressApi } from "@/api-request/addressAPI";
 import AlertModal from "@/components/alert-modal";
 import { Textarea } from "@/components/ui/textarea";
+import { toast } from "sonner";
 
 type AddressForm = {
   address: string;
@@ -107,6 +108,8 @@ export default function AddressClient() {
       setAddresses((prev) => prev.filter((addr) => addr._id !== deletingAddress._id));
       setOpen(false);
       setDeletingAddress(null);
+      toast.success("Thao tác thành công");
+
       router.refresh();
     } catch (error) {
       console.error("Lỗi khi xóa thông tin liên hệ:", error);

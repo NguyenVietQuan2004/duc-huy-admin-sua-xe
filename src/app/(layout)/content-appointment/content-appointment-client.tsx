@@ -10,6 +10,7 @@ import { useAppSelector } from "@/store/hook";
 import { useRouter } from "next/navigation";
 import { ContentAppointmentType } from "@/type/content-appointment";
 import { contentAppointmentApi } from "@/api-request/contentAppointmentAPI";
+import { toast } from "sonner";
 
 type ContentAppointmentForm = {
   title: string;
@@ -116,6 +117,7 @@ export default function ContentAppointmentClient() {
         await contentAppointmentApi.createContentAppointment({ formData, headers });
       }
       router.refresh();
+      toast.success("Thao tác thành công");
     } catch (error) {
       console.error("Upload content thất bại", error);
       setSubmitError("Upload thất bại, vui lòng thử lại.");

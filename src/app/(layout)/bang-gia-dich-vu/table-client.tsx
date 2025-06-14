@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { useEffect, useRef, useState } from "react";
 import { priceServiceApi } from "@/api-request/tableAPI";
 import { useAppSelector } from "@/store/hook";
+import { toast } from "sonner";
 
 interface PriceServiceType {
   _id?: string;
@@ -121,6 +122,7 @@ export default function PriceServiceClient() {
       reset({ services: formattedUpdated });
       originalIdsRef.current = updated.data.map((item: any) => item._id);
       setIsEditing(true);
+      toast.success("Thao tác thành công");
     } catch (error) {
       console.error("Lỗi khi lưu dữ liệu:", error);
       setSubmitError("Tải dữ liệu thất bại, vui lòng thử lại.");

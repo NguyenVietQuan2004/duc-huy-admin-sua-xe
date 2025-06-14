@@ -11,6 +11,7 @@ import { introApi } from "@/api-request/introAPI";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import ContentInput from "@/components/content-blog";
+import { toast } from "sonner";
 
 type IntroForm = Omit<IntroType, "images" | "created_at" | "updated_at"> & {
   images: FileList;
@@ -116,6 +117,7 @@ export default function IntroClient() {
       } else {
         await introApi.createIntro({ formData, headers });
       }
+      toast.success("Thao tác thành công");
 
       router.push("/intro");
       router.refresh();

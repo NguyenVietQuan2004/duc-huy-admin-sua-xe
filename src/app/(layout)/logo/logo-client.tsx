@@ -10,6 +10,7 @@ import { useAppSelector } from "@/store/hook";
 import { useRouter } from "next/navigation";
 import { Logo } from "@/type/logo";
 import { logoApi } from "@/api-request/logoAPI";
+import { toast } from "sonner";
 
 type LogoForm = {
   images: FileList;
@@ -110,6 +111,7 @@ export default function LogoClient() {
       }
 
       router.refresh();
+      toast.success("Thao tác thành công");
     } catch (error) {
       console.error("Upload logo thất bại", error);
       setSubmitError("Upload logo thất bại, vui lòng thử lại.");
