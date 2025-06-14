@@ -20,6 +20,7 @@ const menuGroups = [
       { value: "Trung tâm", linkTo: "/center", group: "Hiển thị", private: false },
       { value: "Giới thiệu", linkTo: "/intro", group: "Hiển thị", private: false },
       { value: "Poster các trang", linkTo: "/poster", group: "Hiển thị", private: false },
+      { value: "Bảng giá dịch vụ", linkTo: "/table", group: "Hiển thị", private: false },
       { value: "Thông tin liên hệ", linkTo: "/address", group: "Hiển thị", private: false },
       { value: "Nội dung đặt lịch", linkTo: "/content-appointment", group: "Hiển thị", private: false },
     ],
@@ -53,7 +54,9 @@ export default function MobileMenu() {
 
       <SheetContent side="right" className="w-[300px] p-4 bg-white text-black">
         <SheetHeader>
-          <SheetTitle className="text-2xl font-bold text-indigo-600">DucHuy</SheetTitle>
+          <SheetTitle className="text-2xl font-bold text-indigo-600">
+            <Link href={"/"}>DucHuy</Link>
+          </SheetTitle>
         </SheetHeader>
 
         <div className="mt-4">

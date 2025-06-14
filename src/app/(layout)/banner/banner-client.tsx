@@ -11,17 +11,19 @@ import { useRouter } from "next/navigation";
 import { Banner } from "@/type/banner";
 import { bannerApi } from "@/api-request/bannerAPI";
 
-type BannerForm = {
+interface BannerForm {
   images: FileList;
-};
+  images_name: string[];
+}
 
 export default function BannerClient() {
   const token = useAppSelector((state) => state.auth.token);
   const router = useRouter();
   const [fileList, setFileList] = useState<File[]>([]);
+  const [imageNames, setImageNames] = useState<string[]>([]);
   const [banner, setBanner] = useState<Banner | null>(null);
   const [submitError, setSubmitError] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(false); // thêm state loading
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     register,
@@ -45,13 +47,16 @@ export default function BannerClient() {
             files.push(file);
           }
           setFileList(files);
+          setImageNames(data.images_name || new Array(files.length).fill(""));
         } else {
           setBanner(null);
           setFileList([]);
+          setImageNames([]);
         }
       } catch {
         setBanner(null);
         setFileList([]);
+        setImageNames([]);
       }
     };
 
@@ -72,14 +77,15 @@ export default function BannerClient() {
     const files = e.target.files;
     if (files) {
       const selectedFiles = Array.from(files);
-      // Bỏ giới hạn số lượng ảnh, cho phép chọn thoải mái
       setFileList((prev) => [...prev, ...selectedFiles]);
+      setImageNames((prev) => [...prev, ...selectedFiles.map(() => "")]);
       if (fileInputRef.current) fileInputRef.current.value = "";
     }
   };
 
   const removeFile = (index: number) => {
     setFileList((prev) => prev.filter((_, i) => i !== index));
+    setImageNames((prev) => prev.filter((_, i) => i !== index));
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
@@ -90,10 +96,12 @@ export default function BannerClient() {
     }
 
     setSubmitError(null);
-    setIsLoading(true); // bắt đầu loading
+    setIsLoading(true);
 
     const formData = new FormData();
     fileList.forEach((file) => formData.append("images", file));
+    formData.append("images_name", JSON.stringify(imageNames)); // ✅ Gửi dưới dạng JSON string
+
     const headers = { Authorization: `Bearer ${token}` };
 
     try {
@@ -103,18 +111,17 @@ export default function BannerClient() {
         await bannerApi.createBanner({ formData, headers });
       }
 
-      router.refresh();
+      // router.refresh();
     } catch (error) {
       console.error("Upload banner thất bại", error);
       setSubmitError("Upload banner thất bại, vui lòng thử lại.");
     } finally {
-      window.location.reload();
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="  mx-auto mt-6 p-6 bg-white rounded-xl shadow">
+    <div className="mx-auto mt-6 p-6 bg-white rounded-xl shadow">
       <h2 className="text-xl font-bold mb-4">{banner ? "Cập nhật Banner" : "Tải Banner mới"}</h2>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -132,7 +139,6 @@ export default function BannerClient() {
             ref={fileInputRef}
             onChange={onFileChange}
           />
-          {/* Bỏ cảnh báo giới hạn số lượng ảnh */}
         </div>
 
         <div className="grid grid-cols-2 gap-4">
@@ -144,6 +150,17 @@ export default function BannerClient() {
                 width={150}
                 height={150}
                 className="object-contain rounded"
+              />
+              <Input
+                type="text"
+                value={imageNames[index] || ""}
+                onChange={(e) => {
+                  const newNames = [...imageNames];
+                  newNames[index] = e.target.value;
+                  setImageNames(newNames);
+                }}
+                placeholder="Nhập nội dung hiển thị cho slider"
+                className="mt-2"
               />
               <button
                 type="button"

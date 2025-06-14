@@ -15,9 +15,11 @@ type PosterForm = {
   images_intro: FileList;
   images_contact: FileList;
   images_advise: FileList;
+  images_promotion: FileList;
+  images_service: FileList;
 };
 
-type ImageGroup = "images_intro" | "images_contact" | "images_advise";
+type ImageGroup = "images_intro" | "images_contact" | "images_advise" | "images_promotion" | "images_service";
 
 export default function PosterClient() {
   const token = useAppSelector((state) => state.auth.token);
@@ -29,6 +31,8 @@ export default function PosterClient() {
     images_intro: [],
     images_contact: [],
     images_advise: [],
+    images_promotion: [],
+    images_service: [],
   });
 
   const {
@@ -42,6 +46,8 @@ export default function PosterClient() {
     images_intro: useRef<HTMLInputElement>(null),
     images_contact: useRef<HTMLInputElement>(null),
     images_advise: useRef<HTMLInputElement>(null),
+    images_promotion: useRef<HTMLInputElement>(null),
+    images_service: useRef<HTMLInputElement>(null),
   };
 
   useEffect(() => {
@@ -55,6 +61,8 @@ export default function PosterClient() {
             images_intro: data.images_intro,
             images_contact: data.images_contact,
             images_advise: data.images_advise,
+            images_promotion: data.images_promotion,
+            images_service: data.images_service,
           };
 
           setPoster(transformedData);
@@ -63,9 +71,17 @@ export default function PosterClient() {
             images_intro: [],
             images_contact: [],
             images_advise: [],
+            images_promotion: [],
+            images_service: [],
           };
 
-          for (const group of ["images_intro", "images_contact", "images_advise"] as ImageGroup[]) {
+          for (const group of [
+            "images_intro",
+            "images_contact",
+            "images_advise",
+            "images_promotion",
+            "images_service",
+          ] as ImageGroup[]) {
             const url = transformedData[group][0];
             if (url) {
               const file = await urlToFile(url, getFileNameFromUrl(url), "image/jpeg");
@@ -121,12 +137,26 @@ export default function PosterClient() {
   const onSubmit = async () => {
     setSubmitError(null);
 
-    const groups = ["images_intro", "images_contact", "images_advise"] as ImageGroup[];
+    const groups = [
+      "images_intro",
+      "images_contact",
+      "images_advise",
+      "images_promotion",
+      "images_service",
+    ] as ImageGroup[];
     for (const group of groups) {
       if (fileGroups[group].length !== 1) {
         setSubmitError(
           `Mỗi nhóm phải có đúng một ảnh. Vui lòng kiểm tra nhóm "${
-            group === "images_intro" ? "Ảnh giới thiệu" : group === "images_contact" ? "Ảnh liên hệ" : "Ảnh tư vấn"
+            group === "images_intro"
+              ? "Ảnh giới thiệu"
+              : group === "images_contact"
+              ? "Ảnh liên hệ"
+              : group === "images_advise"
+              ? "Ảnh tư vấn"
+              : group === "images_promotion"
+              ? "Ảnh khuyến mãi"
+              : "Ảnh dịch vụ"
           }".`
         );
         return;
@@ -164,10 +194,20 @@ export default function PosterClient() {
       <h2 className="text-xl font-bold mb-4">{poster ? "Cập nhật Poster" : "Tải Poster mới"}</h2>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-        {(["images_intro", "images_contact", "images_advise"] as ImageGroup[]).map((group) => (
+        {(
+          ["images_intro", "images_contact", "images_advise", "images_promotion", "images_service"] as ImageGroup[]
+        ).map((group) => (
           <div key={group}>
             <Label htmlFor={group}>
-              {group === "images_intro" ? "Ảnh giới thiệu" : group === "images_contact" ? "Ảnh liên hệ" : "Ảnh tư vấn"}
+              {group === "images_intro"
+                ? "Ảnh giới thiệu"
+                : group === "images_contact"
+                ? "Ảnh liên hệ"
+                : group === "images_advise"
+                ? "Ảnh tư vấn"
+                : group === "images_promotion"
+                ? "Ảnh khuyến mãi"
+                : "Ảnh dịch vụ"}
             </Label>
             <Input
               id={group}

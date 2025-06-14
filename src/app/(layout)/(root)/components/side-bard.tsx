@@ -18,6 +18,7 @@ const menuGroups = [
       { value: "Trung tâm", linkTo: "/center", group: "Hiển thị", private: false },
       { value: "Giới thiệu", linkTo: "/intro", group: "Hiển thị", private: false },
       { value: "Poster các trang", linkTo: "/poster", group: "Hiển thị", private: false },
+      { value: "Bảng giá dịch vụ", linkTo: "/table", group: "Hiển thị", private: false },
       { value: "Thông tin liên hệ", linkTo: "/address", group: "Hiển thị", private: false },
       { value: "Nội dung đặt lịch", linkTo: "/content-appointment", group: "Hiển thị", private: false },
     ],
@@ -50,7 +51,10 @@ function Sidebar() {
 
   return (
     <aside className="hidden xl:block w-[260px] p-4 h-[92vh] rounded-2xl overflow-scroll">
-      <div className="text-xl font-bold text-indigo-600 mb-6">DucHuy</div>
+      <div className="text-xl font-bold text-indigo-600 mb-6">
+        {" "}
+        <Link href={"/"}>DucHuy</Link>
+      </div>
       <nav className="flex flex-col gap-2 h-[100vh]">
         {menuGroups.map((group) => {
           const groupedItems = group.items.reduce(

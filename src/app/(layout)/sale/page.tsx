@@ -1,7 +1,9 @@
+import SalePage from "./sale-client";
+
 function Sale() {
   return (
     <div>
-      <Sale />
+      <SalePage />
     </div>
   );
 }

@@ -5,4 +5,6 @@ export interface PosterType {
   images_advise: string[];
   created_at?: Date;
   updated_at?: Date;
+  images_promotion: string[];
+  images_service: string[];
 }

@@ -18,6 +18,8 @@ type Props = {
 
 type ServiceForm = Omit<Service, "images" | "created_at" | "updated_at"> & {
   images: FileList;
+  extra_images?: FileList[];
+  extra_images_text?: string[];
 };
 
 export default function ServiceDetailClient({ serviceId }: Props) {
@@ -25,11 +27,9 @@ export default function ServiceDetailClient({ serviceId }: Props) {
   const token = useAppSelector((state) => state.auth.token);
   const adminId = useAppSelector((state) => state.auth.adminId);
   const router = useRouter();
-
-  // State lưu file ảnh (file góc từ URL + file chọn mới)
+  const [isLoading, setIsLoading] = useState(false);
   const [fileList, setFileList] = useState<File[]>([]);
-
-  // State lỗi cho images và content
+  const [extraFields, setExtraFields] = useState<{ file: File | null; text: string; id: number }[]>([]);
   const [imagesError, setImagesError] = useState<string | null>(null);
   const [contentError, setContentError] = useState<string | null>(null);
 
@@ -45,34 +45,46 @@ export default function ServiceDetailClient({ serviceId }: Props) {
 
   const isEditing = Boolean(service && service._id);
 
-  // Nếu tạo mới
+  const addExtraField = () => {
+    setExtraFields((prev) => {
+      if (prev.length >= 2) return prev;
+      return [...prev, { file: null, text: "", id: Date.now() }];
+    });
+  };
+
+  const removeExtraField = (id: number) => {
+    setExtraFields((prev) => prev.filter((field) => field.id !== id));
+  };
+
+  const handleExtraFileChange = (e: React.ChangeEvent<HTMLInputElement>, id: number) => {
+    const file = e.target.files?.[0] || null;
+    setExtraFields((prev) => prev.map((field) => (field.id === id ? { ...field, file } : field)));
+  };
+
+  const handleExtraTextChange = (e: React.ChangeEvent<HTMLInputElement>, id: number) => {
+    const text = e.target.value;
+    setExtraFields((prev) => prev.map((field) => (field.id === id ? { ...field, text } : field)));
+  };
+
   useEffect(() => {
     if (serviceId === "new") {
-      reset({
-        author_id: adminId || undefined,
-      });
+      reset({ author_id: adminId || undefined });
       setFileList([]);
+      setExtraFields([]);
     }
   }, [serviceId, adminId, reset]);
 
-  // Nếu chỉnh sửa thì fetch data, reset form và chuyển URL ảnh thành File
   useEffect(() => {
     const fetchAPI = async () => {
       if (serviceId !== "new") {
         const serviceData = await serviceApi.getServiceById({
           serviceId,
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers: { Authorization: `Bearer ${token}` },
         });
-
         setService(serviceData);
 
-        const { created_at, updated_at, images, ...rest } = serviceData;
-        reset({
-          ...rest,
-          author_id: serviceData.author_id,
-        });
+        const { created_at, updated_at, images, extra_images, extra_images_text, ...rest } = serviceData;
+        reset({ ...rest, author_id: serviceData.author_id });
 
         if (images && images.length > 0) {
           const files: File[] = [];
@@ -86,13 +98,26 @@ export default function ServiceDetailClient({ serviceId }: Props) {
           }
           setFileList(files);
         }
+
+        if (extra_images && extra_images_text && extra_images.length === extra_images_text.length) {
+          const extraFieldsData = await Promise.all(
+            extra_images.map(async (url: any, index: any) => {
+              try {
+                const file = await urlToFile(url, getFileNameFromUrl(url), "image/jpeg");
+                return { file, text: extra_images_text[index], id: Date.now() + index };
+              } catch (e) {
+                return { file: null, text: extra_images_text[index], id: Date.now() + index };
+              }
+            })
+          );
+          setExtraFields(extraFieldsData);
+        }
       }
     };
 
     fetchAPI();
   }, [serviceId, token, reset]);
 
-  // Hàm helper chuyển URL thành File
   async function urlToFile(url: string, filename: string, mimeType: string) {
     const res = await fetch(url);
     const blob = await res.blob();
@@ -103,42 +128,41 @@ export default function ServiceDetailClient({ serviceId }: Props) {
     return url.split("/").pop() || "image.jpg";
   }
 
-  // Khi chọn file mới từ input
   function onFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const files = e.target.files;
     if (files) {
       setFileList((prev) => [...prev, ...Array.from(files)]);
-      // Clear lỗi nếu có
       setImagesError(null);
     }
   }
 
-  // Xóa file theo index
   function removeFile(index: number) {
     setFileList((prev) => prev.filter((_, i) => i !== index));
   }
 
-  // Xử lý submit
   const onSubmit = async (data: Partial<ServiceForm>) => {
-    // Reset lỗi trước submit
     setImagesError(null);
     setContentError(null);
 
-    // Kiểm tra images không được rỗng
     if (fileList.length === 0) {
       setImagesError("Phải chọn ít nhất 1 hình ảnh.");
       return;
     }
 
-    // Kiểm tra content không rỗng
     const content = data.content?.trim();
     if (!content) {
       setContentError("Nội dung không được để trống.");
       return;
     }
 
+    // ❗ RÀNG BUỘC: Đúng 2 phần tử hợp lệ
+    const validExtraFields = extraFields.filter((field) => field.file && field.text.trim() !== "");
+    if (validExtraFields.length < 1) {
+      // alert("Phải có đúng 2 hình ảnh và văn bản bổ sung hợp lệ.");
+      return;
+    }
+
     try {
-      // Tạo formData
       const formData = new FormData();
       formData.append("name", data.name || "");
       formData.append("content", content);
@@ -147,10 +171,17 @@ export default function ServiceDetailClient({ serviceId }: Props) {
 
       fileList.forEach((file) => formData.append("images", file));
 
-      const headers = {
-        Authorization: `Bearer ${token}`,
-      };
+      const extraTextList: string[] = [];
+      validExtraFields.forEach((field) => {
+        if (field.file) {
+          formData.append("extra_images", field.file);
+          extraTextList.push(field.text);
+        }
+      });
+      formData.append("extra_images_text", JSON.stringify(extraTextList));
 
+      const headers = { Authorization: `Bearer ${token}` };
+      setIsLoading(true);
       if (isEditing) {
         if (!service) return;
         await serviceApi.updateService({ formData, headers, _id: service?._id });
@@ -161,6 +192,8 @@ export default function ServiceDetailClient({ serviceId }: Props) {
       router.refresh();
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -172,51 +205,41 @@ export default function ServiceDetailClient({ serviceId }: Props) {
         {isEditing && <input type="hidden" value={service?._id} />}
 
         <div>
-          <Label className="mb-1" htmlFor="name">
-            Tên dịch vụ
-          </Label>
+          <Label htmlFor="name">Tên dịch vụ</Label>
           <Input id="name" {...register("name", { required: true })} />
           {errors.name && <p className="text-red-500 text-sm">Bắt buộc</p>}
         </div>
 
         <div>
-          <Label className="mb-1" htmlFor="price">
-            Giá
-          </Label>
+          <Label htmlFor="price">Giá</Label>
           <Input id="price" {...register("price", { required: true })} />
           {errors.price && <p className="text-red-500 text-sm">Bắt buộc</p>}
         </div>
 
-        {/* ContentInput tự validate content rỗng */}
-        {isEditing && getValues("content") !== undefined && (
-          <ContentInput setValue={setValue} watch={watch} errors={errors} />
-        )}
+        {isEditing && getValues("content") && <ContentInput setValue={setValue} watch={watch} errors={errors} />}
         {!isEditing && <ContentInput setValue={setValue} watch={watch} errors={errors} />}
-        {contentError && <p className="text-red-500 text-sm mt-1">{contentError}</p>}
+        {contentError && <p className="text-red-500 text-sm">{contentError}</p>}
 
         <div>
-          <Label className="mb-1" htmlFor="images">
-            Hình ảnh
-          </Label>
+          <Label htmlFor="images">Hình ảnh chính</Label>
           <Input id="images" type="file" multiple onChange={onFileChange} />
-          {imagesError && <p className="text-red-500 text-sm mt-1">{imagesError}</p>}
+          {imagesError && <p className="text-red-500 text-sm">{imagesError}</p>}
         </div>
 
-        {/* Preview ảnh */}
         <div className="grid grid-cols-3 gap-3">
           {fileList.map((file, index) => (
-            <div key={index} className="flex flex-col justify-center items-center border p-2 rounded relative">
+            <div key={index} className="relative border p-2 rounded">
               <Image
                 src={URL.createObjectURL(file)}
                 alt={`image-${index}`}
                 width={300}
                 height={100}
-                className="object-cover rounded"
+                className="rounded"
               />
               <button
                 type="button"
                 onClick={() => removeFile(index)}
-                className="absolute top-1 right-1 bg-red-500 text-white rounded px-2 py-1 text-xs hover:bg-red-600"
+                className="absolute top-1 right-1 text-white bg-red-500 text-xs px-2 py-1 rounded"
               >
                 Xóa
               </button>
@@ -224,13 +247,58 @@ export default function ServiceDetailClient({ serviceId }: Props) {
           ))}
         </div>
 
+        <div className="space-y-4">
+          <div className="flex justify-between items-center">
+            <Label>Hình ảnh và văn bản bổ sung</Label>
+            <Button type="button" onClick={addExtraField} className="bg-green-500 hover:bg-green-600">
+              Thêm mới
+            </Button>
+          </div>
+          {extraFields.length < 1 && (
+            <p className="text-red-500 text-sm">Phải có ít nhất hình ảnh và văn bản bổ sung.</p>
+          )}
+
+          {extraFields.map((field) => (
+            <div key={field.id} className="border p-4 rounded space-y-2">
+              <div>
+                <Label htmlFor={`extra_image_${field.id}`}>Hình ảnh bổ sung</Label>
+                <Input
+                  id={`extra_image_${field.id}`}
+                  type="file"
+                  onChange={(e) => handleExtraFileChange(e, field.id)}
+                />
+              </div>
+              {field.file && (
+                <Image
+                  src={URL.createObjectURL(field.file)}
+                  alt={`extra-image-${field.id}`}
+                  width={150}
+                  height={100}
+                  className="rounded"
+                />
+              )}
+              <div>
+                <Label htmlFor={`extra_text_${field.id}`}>Văn bản bổ sung</Label>
+                <Input
+                  id={`extra_text_${field.id}`}
+                  value={field.text}
+                  onChange={(e) => handleExtraTextChange(e, field.id)}
+                />
+              </div>
+              <Button type="button" onClick={() => removeExtraField(field.id)} className="bg-red-500 hover:bg-red-600">
+                Xóa
+              </Button>
+            </div>
+          ))}
+        </div>
+
         <div>
-          <Label className="mb-1">Tác giả</Label>
+          <Label>Tác giả</Label>
           <Input value={isEditing ? service?.author_id : adminId || ""} disabled />
         </div>
 
-        <Button type="submit" className="mt-4">
-          {isEditing ? "Lưu chỉnh sửa" : "Tạo dịch vụ"}
+        <Button type="submit" className="mt-4" disabled={isLoading}>
+          {isLoading ? "Đang xử lý..." : isEditing ? "Lưu chỉnh sửa" : "Thêm mới"}
         </Button>
       </form>
     </div>

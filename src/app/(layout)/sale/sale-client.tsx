@@ -1,7 +1,6 @@
 "use client";
 import ButtonAddNew from "@/components/button-add-new";
 import { DataTable } from "@/components/data-table";
-import { Sale } from "@/type/sale";
 import { SaleColumns } from "./table/sale-columns";
 import { useEffect, useState } from "react";
 import { useAppSelector } from "@/store/hook";
