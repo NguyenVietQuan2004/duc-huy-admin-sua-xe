@@ -89,7 +89,7 @@ export default function PriceServiceClient() {
       const toUpdate = data.services
         .filter((item) => item._id)
         .map((item) => ({
-          _id: item._id!,
+          id: item._id!,
           data: {
             name_service: item.name_service,
             vehicle_type: item.vehicle_type.filter((v) => v),
@@ -103,6 +103,7 @@ export default function PriceServiceClient() {
       }
 
       if (toUpdate.length > 0) {
+        console.log(toUpdate);
         await priceServiceApi.update({ data: toUpdate, headers });
       }
 

@@ -20,7 +20,7 @@ const menuGroups = [
       { value: "Trung tâm", linkTo: "/center", group: "Hiển thị", private: false },
       { value: "Giới thiệu", linkTo: "/intro", group: "Hiển thị", private: false },
       { value: "Poster các trang", linkTo: "/poster", group: "Hiển thị", private: false },
-      { value: "Bảng giá dịch vụ", linkTo: "/table", group: "Hiển thị", private: false },
+      { value: "Bảng giá dịch vụ", linkTo: "/bang-gia-dich-vu", group: "Hiển thị", private: false },
       { value: "Thông tin liên hệ", linkTo: "/address", group: "Hiển thị", private: false },
       { value: "Nội dung đặt lịch", linkTo: "/content-appointment", group: "Hiển thị", private: false },
     ],

@@ -21,7 +21,7 @@ export const priceServiceApi = {
 
   // PATCH /api/admin/price-services
   update({ data, headers }: { data: any; headers: HeadersInit }) {
-    return httpRequest.patch<any>(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/admin/price-services`, {
+    return httpRequest.put<any>(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/admin/price-services`, {
       headers,
       body: data,
     });
