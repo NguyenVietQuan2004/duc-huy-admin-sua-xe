@@ -8,9 +8,7 @@ async function BaiVietDetail({ params }: { params: ParamsType }) {
   const { id } = await params;
   return (
     <div>
-      <Suspense fallback={<Loading />}>
-        <BaiVietDetailClient blogId={id} />
-      </Suspense>
+      <BaiVietDetailClient blogId={id} />
     </div>
   );
 }
