@@ -58,7 +58,15 @@ function ServiceAction({ row }: CellActionProps) {
         <DropdownMenuContent align="end">
           <DropdownMenuItem onClick={onCopy}>Copy ID</DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => router.push(`/service/${row._id}`)}>Update</DropdownMenuItem>
+          <DropdownMenuItem
+            // onClick={() => router.push(`/service/${row._id}`)}
+
+            onClick={() => {
+              window.location.href = `/service/${row._id}`;
+            }}
+          >
+            Update
+          </DropdownMenuItem>
           <DropdownMenuItem onClick={() => setOpen(true)}>Delete</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

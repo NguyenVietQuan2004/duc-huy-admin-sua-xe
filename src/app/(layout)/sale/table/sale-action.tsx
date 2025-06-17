@@ -58,7 +58,15 @@ function SaleAction({ row }: CellActionProps) {
         <DropdownMenuContent align="end">
           <DropdownMenuItem onClick={onCopy}>Copy ID</DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => router.push(`/sale/${row._id}`)}>Update</DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={() => {
+              window.location.href = `/sale/${row._id}`;
+            }}
+
+            //  onClick={() => router.push(`/sale/${row._id}`)}
+          >
+            Update
+          </DropdownMenuItem>
           <DropdownMenuItem onClick={() => setOpen(true)}>Delete</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
