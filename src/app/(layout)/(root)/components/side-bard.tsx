@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { ChevronDown, ChevronRight } from "lucide-react";
 import { useAppSelector } from "@/store/hook";
+import Image from "next/image";
 
 const menuGroups = [
   {
@@ -51,9 +52,19 @@ function Sidebar() {
 
   return (
     <aside className="hidden xl:block w-[260px] p-4 h-[92vh] rounded-2xl overflow-scroll">
-      <div className="text-xl font-bold text-indigo-600 mb-6">
-        {" "}
-        <Link href={"/"}>DucHuy</Link>
+      <div className="text-xl font-bold text-[#f8ab34] mb-6">
+        <Link href={"/"} className="flex gap-2 items-center">
+          <Image
+            alt=""
+            src={
+              "https://res.cloudinary.com/dbuerrrqv/image/upload/v1750137460/moto-automate/banner-images-1750137460443-1.png"
+            }
+            width={40}
+            height={40}
+            className=""
+          ></Image>
+          BMB CAR
+        </Link>
       </div>
       <nav className="flex flex-col gap-2 h-[100vh]">
         {menuGroups.map((group) => {

@@ -8,6 +8,7 @@ import { useAppSelector } from "@/store/hook";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 const menuGroups = [
   {
@@ -54,8 +55,19 @@ export default function MobileMenu() {
 
       <SheetContent side="right" className="w-[300px] p-4 bg-white text-black">
         <SheetHeader>
-          <SheetTitle className="text-2xl font-bold text-indigo-600">
-            <Link href={"/"}>DucHuy</Link>
+          <SheetTitle className="text-2xl font-bold text-[#f8ab34]">
+            <Link href={"/"} className="flex gap-2">
+              <Image
+                alt=""
+                src={
+                  "https://res.cloudinary.com/dbuerrrqv/image/upload/v1750137460/moto-automate/banner-images-1750137460443-1.png"
+                }
+                width={40}
+                height={40}
+                className=""
+              ></Image>
+              BMB CAR
+            </Link>
           </SheetTitle>
         </SheetHeader>
 

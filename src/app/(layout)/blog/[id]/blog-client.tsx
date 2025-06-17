@@ -232,7 +232,7 @@ export default function BlogDetailClient({ blogId }: Props) {
           <Input value={isEditing ? blog?.author_id : adminId || ""} disabled />
         </div>
         {formErrors.length > 0 && (
-          <div className="bg-red-100 border border-red-400 text-[#f6ab35] p-3 rounded">
+          <div className="bg-red-100 border border-red-400 text-[#f8ab34] p-3 rounded">
             <ul className="list-disc ml-5 text-sm">
               {formErrors.map((err, idx) => (
                 <li key={idx}>{err}</li>
