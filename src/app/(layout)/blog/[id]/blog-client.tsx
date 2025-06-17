@@ -59,7 +59,6 @@ export default function BlogDetailClient({ blogId }: Props) {
           blogId,
           headers: { Authorization: `Bearer ${token}` },
         });
-
         setBlog(blogData);
         const { created_at, updated_at, images, images_name, ...rest } = blogData;
         reset({ ...rest, author_id: blogData.author_id });
@@ -155,7 +154,7 @@ export default function BlogDetailClient({ blogId }: Props) {
       formData.append("author_id", isEditing ? blog?.author_id || "" : adminId || "");
 
       fileList.forEach((file) => formData.append("images", file));
-
+      console.log(fileList);
       const imageNames = fileList.map((_, i) => imageNameRefs.current[i]?.value || "");
       formData.append("images_name", JSON.stringify(imageNames));
 
