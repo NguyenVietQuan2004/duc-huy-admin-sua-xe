@@ -5,7 +5,7 @@ import { ServiceColumns } from "./table/service-columns";
 import { useEffect, useState } from "react";
 import { useAppSelector } from "@/store/hook";
 import { serviceApi } from "@/api-request/serviceAPI";
-
+import { AArrowDown } from "lucide-react";
 export default function ServicePage() {
   const [services, setServices] = useState([]);
   const token = useAppSelector((state) => state.auth.token);
@@ -19,6 +19,7 @@ export default function ServicePage() {
           Authorization: `Bearer ${token}`, // Gắn token vào header Authorization
         },
       });
+      console.log(services, "fdsfsfsa");
       setServices(services);
     };
     fetchAPI();
