@@ -34,9 +34,9 @@ export default function AccountDetailClient({ accountId }: Props) {
       password: "",
     },
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   const isEditing = Boolean(account && account._id);
-
   useEffect(() => {
     const fetchAccount = async () => {
       if (!accountId || accountId === "new") {
@@ -194,7 +194,7 @@ export default function AccountDetailClient({ accountId }: Props) {
         </div>
 
         <Button type="submit" className="mt-4">
-          {isEditing ? "Lưu chỉnh sửa" : "Tạo tài khoản"}
+          {isLoading ? "Đang xử lí" : isEditing ? "Lưu chỉnh sửa" : "Tạo tài khoản"}
         </Button>
       </form>
     </div>

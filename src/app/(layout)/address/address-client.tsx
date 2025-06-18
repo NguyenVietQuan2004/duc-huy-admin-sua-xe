@@ -67,7 +67,7 @@ export default function AddressClient() {
         const newAddress = await addressApi.createAddress({ data: payload, headers });
         setAddresses((prev) => [...prev, newAddress.address]);
       }
-
+      toast.success("Thao tác thành công");
       reset({ address: "" });
       setEditingAddress(null);
       router.refresh();

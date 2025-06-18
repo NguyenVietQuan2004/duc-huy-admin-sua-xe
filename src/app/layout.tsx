@@ -56,7 +56,15 @@ export default function RootLayout({
 
           {/* <PageTransitionLoading /> */}
         </Providers>
-        <Toaster />
+        <Toaster
+          toastOptions={{
+            style: {
+              fontSize: "18px",
+              padding: "16px 24px",
+              fontWeight: "bold",
+            },
+          }}
+        />
       </body>
     </html>
   );

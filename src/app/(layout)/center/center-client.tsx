@@ -67,7 +67,7 @@ export default function CenterClient() {
         const newCenter = await centerApi.createCenter({ data: payload, headers });
         setCenteres((prev) => [...prev, newCenter.center]);
       }
-
+      toast.success("Thao tác thành công");
       reset({ center: "" });
       setEditingCenter(null);
       router.refresh();

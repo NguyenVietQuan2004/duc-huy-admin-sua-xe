@@ -44,7 +44,7 @@ export function UserMenu() {
       </DropdownMenuTrigger>
 
       <DropdownMenuContent align="end" className="w-52 p-2 space-y-1">
-        <DropdownMenuItem className="gap-2">
+        {/* <DropdownMenuItem className="gap-2">
           <User className="w-4 h-4" />
           My Profile
         </DropdownMenuItem>
@@ -55,7 +55,7 @@ export function UserMenu() {
         <DropdownMenuItem className="gap-2">
           <ListChecks className="w-4 h-4" />
           My Task
-        </DropdownMenuItem>
+        </DropdownMenuItem> */}
         <div className="pt-2" onClick={handleLogout}>
           <Button variant="outline" className="w-full border border-violet-500 text-violet-600 hover:bg-violet-50">
             <LogOut className="w-4 h-4 mr-2" />

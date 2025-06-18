@@ -30,6 +30,7 @@ export default function SaleDetailClient({ saleId }: Props) {
   const imageNameRefs = useRef<HTMLInputElement[]>([]);
   const [imageNameErrors, setImageNameErrors] = useState<string[]>([]);
   const [imageFileError, setImageFileError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   // State lưu file ảnh (file góc từ URL + file chọn mới)
   const [fileList, setFileList] = useState<File[]>([]);
@@ -253,8 +254,8 @@ export default function SaleDetailClient({ saleId }: Props) {
           <Input value={isEditing ? sale?.author_id : adminId || ""} disabled />
         </div>
 
-        <Button type="submit" className="mt-4">
-          {isEditing ? "Lưu chỉnh sửa" : "Tạo bài viết"}
+        <Button type="submit" className="mt-4" disabled={isLoading}>
+          {isLoading ? "Đang xử lí" : isEditing ? "Lưu chỉnh sửa" : "Tạo bài viết"}
         </Button>
       </form>
     </div>

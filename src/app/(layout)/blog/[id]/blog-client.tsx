@@ -32,7 +32,7 @@ export default function BlogDetailClient({ blogId }: Props) {
   const [imageNameErrors, setImageNameErrors] = useState<string[]>([]);
   const [formErrors, setFormErrors] = useState<string[]>([]);
   const [fileList, setFileList] = useState<File[]>([]);
-
+  const [isLoading, setIsLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -109,6 +109,7 @@ export default function BlogDetailClient({ blogId }: Props) {
   }
 
   const onSubmit = async (data: Partial<BlogForm>) => {
+    setIsLoading(true);
     try {
       const errors: string[] = [];
 
@@ -171,6 +172,8 @@ export default function BlogDetailClient({ blogId }: Props) {
       router.refresh();
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -239,8 +242,8 @@ export default function BlogDetailClient({ blogId }: Props) {
             </ul>
           </div>
         )}
-        <Button type="submit" className="mt-4">
-          {isEditing ? "Lưu chỉnh sửa" : "Tạo bài viết"}
+        <Button type="submit" className="mt-4" disabled={isLoading}>
+          {isLoading ? "Đang xử lí" : isEditing ? "Lưu chỉnh sửa" : "Tạo bài viết"}
         </Button>
       </form>
     </div>
