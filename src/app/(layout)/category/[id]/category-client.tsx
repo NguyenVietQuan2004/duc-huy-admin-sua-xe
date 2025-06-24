@@ -1,32 +1,30 @@
 "use client";
 
-import { Service } from "@/type/service";
+import { Category } from "@/type/category";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useEffect, useState } from "react";
 import { useAppSelector } from "@/store/hook";
-import { serviceApi } from "@/api-request/serviceAPI";
+import { categoryApi } from "@/api-request/categoryAPI";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import ContentInput from "@/components/content-blog";
 import { toast } from "sonner";
-import { Category } from "@/type/category";
-import { categoryApi } from "@/api-request/categoryAPI";
 
 type Props = {
-  serviceId: string;
+  categoryId: string;
 };
 
-type ServiceForm = Omit<Service, "images" | "created_at" | "updated_at"> & {
+type CategoryForm = Omit<Category, "images" | "created_at" | "updated_at"> & {
   images: FileList;
   extra_images?: FileList[];
   extra_images_text?: string[];
 };
 
-export default function ServiceDetailClient({ serviceId }: Props) {
-  const [service, setService] = useState<Service | null>(null);
+export default function CategoryDetailClient({ categoryId }: Props) {
+  const [category, setCategory] = useState<Category | null>(null);
   const token = useAppSelector((state) => state.auth.token);
   const adminId = useAppSelector((state) => state.auth.adminId);
   const router = useRouter();
@@ -35,7 +33,6 @@ export default function ServiceDetailClient({ serviceId }: Props) {
   const [extraFields, setExtraFields] = useState<{ file: File | null; text: string; id: number }[]>([]);
   const [imagesError, setImagesError] = useState<string | null>(null);
   const [contentError, setContentError] = useState<string | null>(null);
-  const [listCategory, setlistCategory] = useState<Category[]>();
 
   const {
     register,
@@ -45,9 +42,9 @@ export default function ServiceDetailClient({ serviceId }: Props) {
     reset,
     watch,
     formState: { errors },
-  } = useForm<Partial<ServiceForm>>();
+  } = useForm<Partial<CategoryForm>>();
 
-  const isEditing = Boolean(service && service._id);
+  const isEditing = Boolean(category && category._id);
 
   const addExtraField = () => {
     setExtraFields((prev) => {
@@ -71,38 +68,24 @@ export default function ServiceDetailClient({ serviceId }: Props) {
   };
 
   useEffect(() => {
-    if (serviceId === "new") {
+    if (categoryId === "new") {
       reset({ author_id: adminId || undefined });
       setFileList([]);
       setExtraFields([]);
     }
-  }, [serviceId, adminId, reset]);
+  }, [categoryId, adminId, reset]);
 
   useEffect(() => {
     const fetchAPI = async () => {
-      const categorys = await categoryApi.getAllcategory({
-        limit: 100,
-        page: 1,
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setlistCategory(categorys);
-
-      if (serviceId !== "new") {
-        const serviceData = await serviceApi.getServiceById({
-          serviceId,
+      if (categoryId !== "new") {
+        const categoryData = await categoryApi.getCategoryById({
+          categoryId,
           headers: { Authorization: `Bearer ${token}` },
         });
-        setService(serviceData);
-        console.log(serviceData);
-        const { created_at, updated_at, images, extra_images, extra_images_text, ...rest } = serviceData;
-        reset({
-          ...rest,
-          author_id: serviceData.author_id,
-          category_id: serviceData.category_id,
-        });
+        setCategory(categoryData);
+
+        const { created_at, updated_at, images, extra_images, extra_images_text, ...rest } = categoryData;
+        reset({ ...rest, author_id: categoryData.author_id });
 
         if (images && images.length > 0) {
           const files: File[] = [];
@@ -134,7 +117,7 @@ export default function ServiceDetailClient({ serviceId }: Props) {
     };
 
     fetchAPI();
-  }, [serviceId, token, reset]);
+  }, [categoryId, token, reset]);
 
   async function urlToFile(url: string, filename: string, mimeType: string) {
     const res = await fetch(url);
@@ -158,7 +141,7 @@ export default function ServiceDetailClient({ serviceId }: Props) {
     setFileList((prev) => prev.filter((_, i) => i !== index));
   }
 
-  const onSubmit = async (data: Partial<ServiceForm>) => {
+  const onSubmit = async (data: Partial<CategoryForm>) => {
     setImagesError(null);
     setContentError(null);
 
@@ -173,16 +156,19 @@ export default function ServiceDetailClient({ serviceId }: Props) {
       return;
     }
 
+    // ❗ RÀNG BUỘC: Đúng 2 phần tử hợp lệ
     const validExtraFields = extraFields.filter((field) => field.file && field.text.trim() !== "");
-    if (validExtraFields.length < 1) return;
+    if (validExtraFields.length < 1) {
+      // alert("Phải có đúng 2 hình ảnh và văn bản bổ sung hợp lệ.");
+      return;
+    }
 
     try {
       const formData = new FormData();
       formData.append("name", data.name || "");
       formData.append("content", content);
       formData.append("price", data.price || "");
-      formData.append("author_id", isEditing ? service?.author_id || "" : adminId || "");
-      formData.append("category_id", data.category_id || "");
+      formData.append("author_id", isEditing ? category?.author_id || "" : adminId || "");
 
       fileList.forEach((file) => formData.append("images", file));
 
@@ -198,13 +184,13 @@ export default function ServiceDetailClient({ serviceId }: Props) {
       const headers = { Authorization: `Bearer ${token}` };
       setIsLoading(true);
       if (isEditing) {
-        if (!service) return;
-        await serviceApi.updateService({ formData, headers, _id: service?._id });
+        if (!category) return;
+        await categoryApi.updateCategory({ formData, headers, _id: category?._id });
       } else {
-        await serviceApi.createService({ formData, headers });
+        await categoryApi.createCategory({ formData, headers });
       }
       toast.success("Thao tác thành công");
-      router.push("/service");
+      router.push("/category");
       router.refresh();
     } catch (error) {
       console.error(error);
@@ -215,13 +201,15 @@ export default function ServiceDetailClient({ serviceId }: Props) {
 
   return (
     <div className="max-w-3xl mx-auto mt-6 p-6 bg-white shadow rounded-xl">
-      <h1 className="text-xl font-bold text-indigo-600 mb-4">{isEditing ? "Chỉnh sửa dịch vụ" : "Tạo dịch vụ mới"}</h1>
+      <h1 className="text-xl font-bold text-indigo-600 mb-4">
+        {isEditing ? "Chỉnh sửa danh mục" : "Tạo danh mục mới"}
+      </h1>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        {isEditing && <input type="hidden" value={service?._id} />}
+        {isEditing && <input type="hidden" value={category?._id} />}
 
         <div>
-          <Label htmlFor="name">Tên dịch vụ</Label>
+          <Label htmlFor="name">Tên danh mục</Label>
           <Input id="name" {...register("name", { required: true })} />
           {errors.name && <p className="text-red-500 text-sm">Bắt buộc</p>}
         </div>
@@ -230,26 +218,6 @@ export default function ServiceDetailClient({ serviceId }: Props) {
           <Label htmlFor="price">Giá</Label>
           <Input id="price" {...register("price", { required: true })} />
           {errors.price && <p className="text-red-500 text-sm">Bắt buộc</p>}
-        </div>
-
-        <div>
-          <Label htmlFor="category_id">Danh mục</Label>
-          <select
-            id="category_id"
-            {...register("category_id", { required: true })}
-            className="w-full border px-3 py-2 rounded max-w-fit"
-            defaultValue={getValues("category_id") || ""}
-          >
-            <option value="" disabled>
-              -- Chọn danh mục --
-            </option>
-            {listCategory?.map((cat) => (
-              <option key={cat._id} value={cat._id}>
-                {cat.name}
-              </option>
-            ))}
-          </select>
-          {errors.category_id && <p className="text-red-500 text-sm">Bắt buộc chọn danh mục</p>}
         </div>
 
         {isEditing && getValues("content") && <ContentInput setValue={setValue} watch={watch} errors={errors} />}
@@ -330,7 +298,7 @@ export default function ServiceDetailClient({ serviceId }: Props) {
 
         <div>
           <Label>Tác giả</Label>
-          <Input value={isEditing ? service?.author_id : adminId || ""} disabled />
+          <Input value={isEditing ? category?.author_id : adminId || ""} disabled />
         </div>
 
         <Button type="submit" className="mt-4" disabled={isLoading}>

@@ -30,6 +30,7 @@ const menuGroups = [
     label: "DANH MỤC",
     items: [
       { value: "Dịch vụ", linkTo: "/service", private: false },
+      { value: "Danh mục", linkTo: "/category", private: false },
       { value: "Liên hệ", linkTo: "/contact", private: false },
       { value: "Bài viết", linkTo: "/blog", private: false },
       { value: "Đặt lịch", linkTo: "/appointment", private: false },

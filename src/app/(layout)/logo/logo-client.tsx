@@ -91,8 +91,8 @@ export default function LogoClient() {
   };
 
   const onSubmit = async () => {
-    if (fileList.length !== 2) {
-      setSubmitError("Bạn phải chọn đúng 2 ảnh để tải lên.");
+    if (fileList.length !== 1 && fileList.length !== 2) {
+      setSubmitError("Bạn phải chọn 1 hoặc 2 ảnh để tải lên.");
       return;
     }
 

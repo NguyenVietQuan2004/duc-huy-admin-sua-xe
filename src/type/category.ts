@@ -1,8 +1,7 @@
-export type Service = {
+export type Category = {
   _id: string;
   name: string;
   content: string;
-  category_id: string;
   price: string;
   images: string[]; // assuming multiple image URLs
   extra_images?: string[];

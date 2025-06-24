@@ -19,15 +19,18 @@ interface AlertModalProps {
   onConfirm: () => void;
   onClose: () => void;
   variant: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link" | null | undefined;
+  textWarning?: string;
 }
-function AlertModal({ variant, action, onConfirm, isLoading, open, onClose }: AlertModalProps) {
+function AlertModal({ variant, action, onConfirm, isLoading, open, onClose, textWarning }: AlertModalProps) {
   return (
     <UiAlertDialog open={open}>
       <AlertDialogTrigger className="hidden"></AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Bạn có chắc không?</AlertDialogTitle>
-          <AlertDialogDescription>Hành động này không thể hoàn tác</AlertDialogDescription>
+          <AlertDialogDescription>
+            {(textWarning && <span className="text-red-400">{textWarning}</span>) || "Hành động này không thể hoàn tác"}
+          </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel onClick={onClose}>Hủy</AlertDialogCancel>

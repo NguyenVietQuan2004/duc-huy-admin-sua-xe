@@ -28,6 +28,7 @@ const menuGroups = [
     label: "DANH MỤC",
     items: [
       { value: "Dịch vụ", linkTo: "/service", private: false },
+      { value: "Danh mục", linkTo: "/category", private: false },
       { value: "Liên hệ", linkTo: "/contact", private: false },
       { value: "Bài viết", linkTo: "/blog", private: false },
       { value: "Đặt lịch", linkTo: "/appointment", private: false },
@@ -51,7 +52,7 @@ function Sidebar() {
   const contentRef = useRef<HTMLDivElement>(null);
 
   return (
-    <aside className="hidden xl:block w-[260px] p-4 h-[92vh] rounded-2xl overflow-scroll">
+    <aside className="hidden xl:block w-[270px] p-4 h-[92vh] rounded-2xl overflow-scroll">
       <div className="text-xl font-bold text-[#f8ab34] mb-6">
         <Link href={"/"} className="flex gap-2 items-center">
           <Image
