@@ -18,7 +18,6 @@ function CellStatusAppointment({ row }: CellStatusAppointmentProps) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const token = useAppSelector((state) => state.auth.token);
-
   const headers = {
     Authorization: `Bearer ${token}`,
   };

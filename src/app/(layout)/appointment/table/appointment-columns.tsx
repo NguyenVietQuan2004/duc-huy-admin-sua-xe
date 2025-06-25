@@ -44,6 +44,10 @@ export const AppointmentColumns: ColumnDef<Appointment>[] = [
     header: "Loại xe",
   },
   {
+    accessorKey: "services",
+    header: "Dịch vụ",
+  },
+  {
     id: "actions1",
     enableHiding: false,
     cell: ({ row }) => <CellStatusAppointment row={row.original} />,

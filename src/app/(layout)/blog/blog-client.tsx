@@ -16,7 +16,7 @@ export default function BlogPage() {
         page: 1,
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // Gắn token vào header Authorization
+          Authorization: `Bearer ${token}`,
         },
       });
       setBlogs(blogs.data);

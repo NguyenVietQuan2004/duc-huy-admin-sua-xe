@@ -29,15 +29,21 @@ function CategoryAction({ row }: CellActionProps) {
     Authorization: `Bearer ${token}`,
   };
 
-  const router = useRouter();
   const onCopy = () => {
     toast("Đã copy");
     navigator.clipboard.writeText(row._id);
   };
   const handleDeleteProduct = async () => {
-    await categoryApi.deleteCategory({ _id: row._id, headers });
-    window.location.reload();
-    setOpen(false);
+    try {
+      await categoryApi.deleteCategory({ _id: row._id, headers });
+      window.location.reload();
+    } catch (error: any) {
+      if (error.status === 500) {
+        toast.error("Không thể xóa danh mục, có dịch vụ đang liên kết đến");
+      }
+    } finally {
+      setOpen(false);
+    }
   };
   return (
     <div>
@@ -45,7 +51,6 @@ function CategoryAction({ row }: CellActionProps) {
         open={open}
         onClose={() => setOpen(false)}
         action="Xóa"
-        textWarning="Xóa danh mục kèm tất cả dịch vụ đang liên kết."
         variant="destructive"
         onConfirm={handleDeleteProduct}
       />

@@ -49,7 +49,7 @@ export function DataTable<TData, TValue>({ columns, data, filterField }: DataTab
   });
 
   return (
-    <div>
+    <div className="max-w-[1150px] overflow-auto ">
       <div className="flex items-center py-4 ">
         <Input
           placeholder={`Lọc ...`}
