@@ -43,9 +43,21 @@ export const AppointmentColumns: ColumnDef<Appointment>[] = [
     accessorKey: "car_type",
     header: "Loại xe",
   },
+  // {
+  //   accessorKey: "services",
+  //   header: "Dịch vụ",
+  // },
   {
-    accessorKey: "services",
+    id: "services",
+    enableHiding: false,
     header: "Dịch vụ",
+    cell: ({ row }) => (
+      <>
+        {row.original.services.map((item) => (
+          <div>{item.name} </div>
+        ))}
+      </>
+    ),
   },
   {
     id: "actions1",
