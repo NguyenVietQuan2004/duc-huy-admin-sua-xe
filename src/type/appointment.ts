@@ -17,7 +17,7 @@ export type Appointment = {
   expected_date: Date;
   expected_time: string;
   car_type: string;
-  services: Service[];
+  service: Service[];
   center: Center;
   created_at: Date;
   updated_at: Date;

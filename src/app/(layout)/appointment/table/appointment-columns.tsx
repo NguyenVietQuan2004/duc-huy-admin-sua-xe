@@ -56,7 +56,7 @@ export const AppointmentColumns: ColumnDef<Appointment>[] = [
       console.log(row.original);
       return (
         <React.Fragment>
-          {row.original.services.map((item) => (
+          {row.original.service.map((item) => (
             <div key={item._id}>{item.name} </div>
           ))}
         </React.Fragment>
