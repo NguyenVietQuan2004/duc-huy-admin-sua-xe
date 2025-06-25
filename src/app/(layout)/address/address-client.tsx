@@ -91,13 +91,11 @@ export default function AddressClient() {
 
   const headers = { Authorization: `Bearer ${token}` };
 
-  // Chỉ set address cần xóa và mở modal xác nhận
   const confirmDelete = (address: Address) => {
     setDeletingAddress(address);
     setOpen(true);
   };
 
-  // Xóa thật sau khi user xác nhận
   const handleDelete = async () => {
     if (!deletingAddress?._id) return;
 

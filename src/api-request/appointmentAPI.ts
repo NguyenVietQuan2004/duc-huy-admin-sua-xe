@@ -14,7 +14,6 @@ export const appointmentApi = {
       headers,
     });
   },
-  // cho nay patch
   updateAppointment({ headers, _id }: { headers: HeadersInit; _id: string }) {
     return httpRequest.patch<any>(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/admin/appointments/${_id}/done`, {
       headers,

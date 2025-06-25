@@ -55,7 +55,7 @@ export const AppointmentColumns: ColumnDef<Appointment>[] = [
   {
     id: "actions2",
     enableHiding: false,
-    header: "Hành động", // hoặc "Action" tuỳ bạn
+    header: "Hành động",
     cell: ({ row }) => <AppointmentAction row={row.original} />,
   },
 ];

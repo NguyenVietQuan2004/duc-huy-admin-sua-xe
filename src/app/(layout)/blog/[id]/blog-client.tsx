@@ -155,7 +155,6 @@ export default function BlogDetailClient({ blogId }: Props) {
       formData.append("author_id", isEditing ? blog?.author_id || "" : adminId || "");
 
       fileList.forEach((file) => formData.append("images", file));
-      console.log(fileList);
       const imageNames = fileList.map((_, i) => imageNameRefs.current[i]?.value || "");
       formData.append("images_name", JSON.stringify(imageNames));
 

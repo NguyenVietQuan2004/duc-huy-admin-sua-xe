@@ -1,4 +1,3 @@
-// src/api-request/bannerAPI.ts
 import httpRequest from "@/lib/http";
 
 export const bannerApi = {

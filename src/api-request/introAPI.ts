@@ -1,4 +1,3 @@
-// src/api-request/introAPI.ts
 import httpRequest from "@/lib/http";
 
 export const introApi = {

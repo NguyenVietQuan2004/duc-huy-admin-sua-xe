@@ -96,7 +96,6 @@ export default function ServiceDetailClient({ serviceId }: Props) {
           headers: { Authorization: `Bearer ${token}` },
         });
         setService(serviceData);
-        console.log(serviceData);
         const { created_at, updated_at, images, extra_images, extra_images_text, ...rest } = serviceData;
         reset({
           ...rest,

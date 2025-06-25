@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 type Props = {
-  accountId?: string | null; // ID tài khoản hoặc "new"
+  accountId?: string | null;
 };
 
 type AccountForm = Omit<Account, "created_at" | "updated_at"> & { password: string };
@@ -60,7 +60,7 @@ export default function AccountDetailClient({ accountId }: Props) {
         setAccount(fetchedAccount);
         reset({
           ...fetchedAccount,
-          password: "", // không prefill password
+          password: "",
         });
         document.getElementById("email")?.setAttribute("value", fetchedAccount.email);
         document.getElementById("password")?.setAttribute("value", "");
@@ -116,7 +116,7 @@ export default function AccountDetailClient({ accountId }: Props) {
   };
 
   const validatePasswordStrength = (password: string | undefined) => {
-    if (!password) return true; // Cho phép rỗng khi edit
+    if (!password) return true;
     if (password.length < 6) return "Mật khẩu tối thiểu 6 ký tự";
     if (!/[a-z]/.test(password)) return "Phải có ít nhất 1 chữ thường";
     if (!/[A-Z]/.test(password)) return "Phải có ít nhất 1 chữ hoa";

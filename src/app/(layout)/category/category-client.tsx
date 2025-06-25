@@ -19,7 +19,6 @@ export default function CategoryPage() {
           Authorization: `Bearer ${token}`, // Gắn token vào header Authorization
         },
       });
-      console.log(categorys, "fdsfsfsa");
       setCategorys(categorys);
     };
     fetchAPI();

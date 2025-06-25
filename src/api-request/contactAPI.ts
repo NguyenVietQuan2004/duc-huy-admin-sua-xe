@@ -9,7 +9,6 @@ export const contactApi = {
       }
     );
   },
-  // patch
   updateContact({ headers, _id }: { headers: HeadersInit; _id: string }) {
     return httpRequest.patch<any>(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/admin/contact/${_id}/handled`, {
       headers,

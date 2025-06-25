@@ -156,7 +156,6 @@ export default function CategoryDetailClient({ categoryId }: Props) {
       return;
     }
 
-    // ❗ RÀNG BUỘC: Đúng 2 phần tử hợp lệ
     const validExtraFields = extraFields.filter((field) => field.file && field.text.trim() !== "");
     if (validExtraFields.length < 1) {
       // alert("Phải có đúng 2 hình ảnh và văn bản bổ sung hợp lệ.");

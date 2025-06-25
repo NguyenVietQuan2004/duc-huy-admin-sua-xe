@@ -28,7 +28,7 @@ export const AccountColumns: ColumnDef<Account>[] = [
   },
   {
     id: "actions",
-    header: "Hành động", // hoặc "Action" tuỳ bạn
+    header: "Hành động",
     enableHiding: false,
     cell: ({ row }) => <BaiVietAcTion row={row.original} />,
   },

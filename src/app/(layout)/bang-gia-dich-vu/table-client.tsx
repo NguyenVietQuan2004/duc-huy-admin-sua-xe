@@ -104,7 +104,6 @@ export default function PriceServiceClient() {
       }
 
       if (toUpdate.length > 0) {
-        console.log(toUpdate);
         await priceServiceApi.update({ data: toUpdate, headers });
       }
 
