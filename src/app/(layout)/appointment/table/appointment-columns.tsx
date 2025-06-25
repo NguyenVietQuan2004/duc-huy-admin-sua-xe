@@ -6,6 +6,7 @@ import { ArrowUpDown } from "lucide-react";
 import { Appointment } from "@/type/appointment";
 import CellStatusAppointment from "./appointment-status-action";
 import AppointmentAction from "./appointment-action";
+import React from "react";
 
 export const AppointmentColumns: ColumnDef<Appointment>[] = [
   {
@@ -54,11 +55,11 @@ export const AppointmentColumns: ColumnDef<Appointment>[] = [
     cell: ({ row }) => {
       console.log(row.original);
       return (
-        <>
+        <React.Fragment>
           {row.original.services.map((item) => (
-            <div>{item.name} </div>
+            <div key={item._id}>{item.name} </div>
           ))}
-        </>
+        </React.Fragment>
       );
     },
   },
