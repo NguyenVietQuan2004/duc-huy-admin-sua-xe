@@ -51,13 +51,16 @@ export const AppointmentColumns: ColumnDef<Appointment>[] = [
     id: "services",
     enableHiding: false,
     header: "Dịch vụ",
-    cell: ({ row }) => (
-      <>
-        {row.original.services.map((item) => (
-          <div>{item.name} </div>
-        ))}
-      </>
-    ),
+    cell: ({ row }) => {
+      console.log(row.original);
+      return (
+        <>
+          {row.original.services.map((item) => (
+            <div>{item.name} </div>
+          ))}
+        </>
+      );
+    },
   },
   {
     id: "actions1",
