@@ -29,8 +29,8 @@ const menuGroups = [
   {
     label: "DANH MỤC",
     items: [
-      { value: "Dịch vụ con", linkTo: "/service", private: false },
       { value: "Dịch vụ chính", linkTo: "/category", private: false },
+      { value: "Dịch vụ con", linkTo: "/service", private: false },
       { value: "Liên hệ", linkTo: "/contact", private: false },
       { value: "Bài viết", linkTo: "/blog", private: false },
       { value: "Đặt lịch", linkTo: "/appointment", private: false },
