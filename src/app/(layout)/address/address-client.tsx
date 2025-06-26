@@ -213,7 +213,7 @@ import { toast } from "sonner";
 
 type AddressForm = {
   address: string;
-  name: string; // loại thông tin: Số điện thoại hoặc Địa chỉ
+  name: string;
 };
 
 export default function AddressClient() {
@@ -343,7 +343,7 @@ export default function AddressClient() {
             {...register("name", { required: "Vui lòng chọn loại liên hệ" })}
           >
             <option value="Số điện thoại">Số điện thoại</option>
-            <option value="Địa chỉ">Địa chỉ</option>
+            <option value="Email">Email</option>
           </select>
           {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>}
         </div>
