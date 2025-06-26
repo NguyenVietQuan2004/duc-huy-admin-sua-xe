@@ -125,6 +125,17 @@ export function DataTable<TData, TValue>({ columns, data, filterField }: DataTab
         <Button variant="outline" size="sm" onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
           Previous
         </Button>
+        {Array.from({ length: table.getPageCount() }, (_, i) => (
+          <Button
+            key={i}
+            variant={table.getState().pagination.pageIndex === i ? "default" : "outline"}
+            size="sm"
+            onClick={() => table.setPageIndex(i)}
+          >
+            {i + 1}
+          </Button>
+        ))}
+
         <Button variant="outline" size="sm" onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
           Next
         </Button>
