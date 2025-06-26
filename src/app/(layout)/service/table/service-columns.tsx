@@ -24,6 +24,10 @@ export const ServiceColumns: ColumnDef<Service>[] = [
     },
   },
   {
+    accessorKey: "category_name",
+    header: "Thuộc danh mục",
+  },
+  {
     accessorKey: "content",
     header: "Nội dung",
     cell: ({ row }) => {
