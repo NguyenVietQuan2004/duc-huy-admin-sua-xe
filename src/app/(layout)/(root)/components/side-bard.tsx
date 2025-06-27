@@ -92,7 +92,7 @@ function Sidebar() {
               {groupedItems.ungrouped.map((item) => {
                 const isActive = pathname === item.linkTo;
                 return (
-                  <Link href={item.linkTo} key={item.value} className={`${item.private && !isBoss ? "hidden" : ""}`}>
+                  <a href={item.linkTo} key={item.value} className={`${item.private && !isBoss ? "hidden" : ""}`}>
                     <Button
                       variant="ghost"
                       className={`justify-start w-full mt-2 font-light transition-all ${
@@ -103,7 +103,7 @@ function Sidebar() {
                     >
                       {item.value}
                     </Button>
-                  </Link>
+                  </a>
                 );
               })}
 
@@ -130,7 +130,7 @@ function Sidebar() {
                       {groupedItems.grouped.map((item) => {
                         const isActive = pathname === item.linkTo;
                         return (
-                          <Link
+                          <a
                             href={item.linkTo}
                             key={item.value}
                             className={`${item.private && !isBoss ? "hidden" : ""}`}
@@ -143,7 +143,7 @@ function Sidebar() {
                             >
                               {item.value}
                             </Button>
-                          </Link>
+                          </a>
                         );
                       })}
                     </div>
