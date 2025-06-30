@@ -218,9 +218,11 @@ export default function CategoryDetailClient({ categoryId }: Props) {
           <Input id="price" {...register("price", { required: true })} />
           {errors.price && <p className="text-red-500 text-sm">Bắt buộc</p>}
         </div>
-
+        {/* 
         {isEditing && getValues("content") && <ContentInput setValue={setValue} watch={watch} errors={errors} />}
-        {!isEditing && <ContentInput setValue={setValue} watch={watch} errors={errors} />}
+        {!isEditing && <ContentInput setValue={setValue} watch={watch} errors={errors} />} */}
+        {<ContentInput setValue={setValue} watch={watch} errors={errors} />}
+
         {contentError && <p className="text-red-500 text-sm">{contentError}</p>}
 
         <div>

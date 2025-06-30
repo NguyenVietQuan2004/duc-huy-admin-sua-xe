@@ -251,8 +251,9 @@ export default function ServiceDetailClient({ serviceId }: Props) {
           {errors.category_id && <p className="text-red-500 text-sm">Bắt buộc chọn danh mục</p>}
         </div>
 
-        {isEditing && getValues("content") && <ContentInput setValue={setValue} watch={watch} errors={errors} />}
-        {!isEditing && <ContentInput setValue={setValue} watch={watch} errors={errors} />}
+        {/* {isEditing && getValues("content") && <ContentInput setValue={setValue} watch={watch} errors={errors} />}
+        {!isEditing && <ContentInput setValue={setValue} watch={watch} errors={errors} />} */}
+        {<ContentInput setValue={setValue} watch={watch} errors={errors} />}
         {contentError && <p className="text-red-500 text-sm">{contentError}</p>}
 
         <div>

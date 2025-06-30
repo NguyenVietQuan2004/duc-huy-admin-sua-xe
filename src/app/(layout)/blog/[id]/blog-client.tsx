@@ -176,6 +176,10 @@ export default function BlogDetailClient({ blogId }: Props) {
     }
   };
 
+  const [isMounted, setIsMounted] = useState(false);
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
   return (
     <div className=" mx-auto mt-6 p-6 bg-white shadow rounded-xl">
       <h1 className="text-xl font-bold text-indigo-600 mb-4">
@@ -192,9 +196,9 @@ export default function BlogDetailClient({ blogId }: Props) {
         <div className="hidden">
           <Input id="name" {...register("name")} />
         </div>
-        {isEditing && getValues("content") && <ContentInput setValue={setValue} watch={watch} errors={errors} />}
-        {!isEditing && <ContentInput setValue={setValue} watch={watch} errors={errors} />}
-        {/* <ContentInput setValue={setValue} watch={watch} errors={errors} /> */}
+        {/* {getValues("content") && <ContentInput setValue={setValue} watch={watch} ahihi="aaaaaaaa" errors={errors} />}
+        {!getValues("content") && <ContentInput setValue={setValue} watch={watch} ahihi="bbbbbbbq" errors={errors} />} */}
+        {<ContentInput setValue={setValue} watch={watch} errors={errors} />}
         <div>
           <Label htmlFor="images">Hình ảnh</Label>
           <Input id="images" type="file" multiple onChange={onFileChange} />
