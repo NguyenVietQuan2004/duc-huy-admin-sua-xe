@@ -1,6 +1,7 @@
 export type Service = {
   _id: string;
   name: string;
+  title: string;
   content: string;
   category_id: string;
   price: string;

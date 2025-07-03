@@ -2,6 +2,7 @@ export type Category = {
   _id: string;
   name: string;
   content: string;
+  title: string;
   price: string;
   images: string[]; // assuming multiple image URLs
   extra_images?: string[];

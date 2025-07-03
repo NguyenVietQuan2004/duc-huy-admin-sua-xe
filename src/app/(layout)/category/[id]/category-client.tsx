@@ -165,6 +165,7 @@ export default function CategoryDetailClient({ categoryId }: Props) {
     try {
       const formData = new FormData();
       formData.append("name", data.name || "");
+      formData.append("title", data.title || "");
       formData.append("content", content);
       formData.append("price", data.price || "");
       formData.append("author_id", isEditing ? category?.author_id || "" : adminId || "");
@@ -221,6 +222,11 @@ export default function CategoryDetailClient({ categoryId }: Props) {
         {/* 
         {isEditing && getValues("content") && <ContentInput setValue={setValue} watch={watch} errors={errors} />}
         {!isEditing && <ContentInput setValue={setValue} watch={watch} errors={errors} />} */}
+        <div>
+          <Label htmlFor="title">Tên danh mục</Label>
+          <Input id="title" {...register("title", { required: true })} />
+          {errors.title && <p className="text-red-500 text-sm">Bắt buộc</p>}
+        </div>
         {<ContentInput setValue={setValue} watch={watch} errors={errors} />}
 
         {contentError && <p className="text-red-500 text-sm">{contentError}</p>}
