@@ -259,7 +259,7 @@ export default function ServiceDetailClient({ serviceId }: Props) {
           <Input id="title" {...register("title", { required: true })} />
           {errors.title && <p className="text-red-500 text-sm">Bắt buộc</p>}
         </div>
-        {<ContentInput setValue={setValue} watch={watch} errors={errors} />}
+        {<ContentInput isEditting={isEditing} setValue={setValue} watch={watch} errors={errors} />}
         {contentError && <p className="text-red-500 text-sm">{contentError}</p>}
 
         <div>

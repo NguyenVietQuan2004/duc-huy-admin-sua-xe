@@ -198,7 +198,7 @@ export default function BlogDetailClient({ blogId }: Props) {
         </div>
         {/* {getValues("content") && <ContentInput setValue={setValue} watch={watch} ahihi="aaaaaaaa" errors={errors} />}
         {!getValues("content") && <ContentInput setValue={setValue} watch={watch} ahihi="bbbbbbbq" errors={errors} />} */}
-        {<ContentInput setValue={setValue} watch={watch} errors={errors} />}
+        {<ContentInput isEditting={isEditing} setValue={setValue} watch={watch} errors={errors} />}
         <div>
           <Label htmlFor="images">Hình ảnh</Label>
           <Input id="images" type="file" multiple onChange={onFileChange} />

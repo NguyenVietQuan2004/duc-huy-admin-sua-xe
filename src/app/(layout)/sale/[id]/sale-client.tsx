@@ -208,7 +208,7 @@ export default function SaleDetailClient({ saleId }: Props) {
 
         {/* {isEditing && getValues("content") && <ContentInput setValue={setValue} watch={watch} errors={errors} />}
         {!isEditing && <ContentInput setValue={setValue} watch={watch} errors={errors} />} */}
-        {<ContentInput setValue={setValue} watch={watch} errors={errors} />}
+        {<ContentInput isEditting={isEditing} setValue={setValue} watch={watch} errors={errors} />}
 
         <div>
           <Label className="mb-1" htmlFor="images">

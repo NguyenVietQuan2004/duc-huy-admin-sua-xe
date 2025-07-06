@@ -152,7 +152,7 @@ export default function IntroClient() {
 
         {/* {isEditing && getValues("content") && <ContentInput setValue={setValue} watch={watch} errors={errors} />}
         {!isEditing && <ContentInput setValue={setValue} watch={watch} errors={errors} />} */}
-        {<ContentInput setValue={setValue} watch={watch} errors={errors} />}
+        {<ContentInput isEditting={isEditing} setValue={setValue} watch={watch} errors={errors} />}
 
         <div>
           <Label htmlFor="images">Hình ảnh (không bắt buộc)</Label>

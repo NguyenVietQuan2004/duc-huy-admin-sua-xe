@@ -20,7 +20,9 @@ export function UserMenu() {
   const handleLogout = async () => {
     await authApi.signOutNextServer();
     dispatch(logout());
-    router.refresh();
+    if (typeof window !== "undefined") {
+      window.location.reload();
+    }
   };
   return (
     <DropdownMenu>
