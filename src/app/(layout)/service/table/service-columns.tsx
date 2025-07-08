@@ -27,14 +27,14 @@ export const ServiceColumns: ColumnDef<Service>[] = [
     accessorKey: "category_name",
     header: "Thuộc danh mục",
   },
-  {
-    accessorKey: "content",
-    header: "Nội dung",
-    cell: ({ row }) => {
-      const rawContent = row.getValue("content") as string;
-      return stripHtml(rawContent);
-    },
-  },
+  // {
+  //   accessorKey: "content",
+  //   header: "Nội dung",
+  //   cell: ({ row }) => {
+  //     const rawContent = row.getValue("content") as string;
+  //     return stripHtml(rawContent);
+  //   },
+  // },
   {
     header: "Hành động", // hoặc "Action" tuỳ bạn
     id: "actions",
