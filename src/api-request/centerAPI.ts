@@ -2,14 +2,10 @@ import httpRequest from "@/lib/http";
 
 export const centerApi = {
   getCenters() {
-    return httpRequest.get<any>(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/admin/home/repair-centers`, {
-      cache: "no-store",
-    });
+    return httpRequest.get<any>(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/admin/home/repair-centers`, {});
   },
   getCenter({ _id }: { _id: string }) {
-    return httpRequest.get<any>(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/admin/home/repair-centers/${_id}`, {
-      cache: "no-store",
-    });
+    return httpRequest.get<any>(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/admin/home/repair-centers/${_id}`, {});
   },
   updateCenter({ data, headers, _id }: { data: any; headers: HeadersInit; _id: string }) {
     return httpRequest.patch<any>(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/admin/home/repair-centers/${_id}`, {

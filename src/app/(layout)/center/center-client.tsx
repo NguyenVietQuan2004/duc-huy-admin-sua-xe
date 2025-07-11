@@ -70,7 +70,7 @@ export default function CenterClient() {
       toast.success("Thao tác thành công");
       reset({ center: "" });
       setEditingCenter(null);
-      router.refresh();
+      window.location.reload();
     } catch (error) {
       console.error("Lỗi khi xử lý trung tâm:", error);
       setSubmitError("Lỗi khi xử lý trung tâm, vui lòng thử lại.");

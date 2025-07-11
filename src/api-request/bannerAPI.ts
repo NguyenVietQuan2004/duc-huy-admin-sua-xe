@@ -2,9 +2,7 @@ import httpRequest from "@/lib/http";
 
 export const bannerApi = {
   getBanner() {
-    return httpRequest.get<any>(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/admin/home/banners`, {
-      cache: "no-store",
-    });
+    return httpRequest.get<any>(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/admin/home/banners`, {});
   },
 
   createBanner({ formData, headers }: { formData: any; headers: HeadersInit }) {
