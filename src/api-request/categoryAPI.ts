@@ -6,6 +6,7 @@ export const categoryApi = {
       `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/admin/category?limit=${limit}&page=${page}`,
       {
         headers,
+        next: { revalidate: 5 },
       }
     );
   },

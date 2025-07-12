@@ -125,7 +125,9 @@ label {
     @apply bg-background text-foreground;
   }
 }
-
+.cke_combo.cke_combo__font {
+  display: none;
+}
 html *::-webkit-scrollbar {
   border-radius: 0;
   width: 4px;
