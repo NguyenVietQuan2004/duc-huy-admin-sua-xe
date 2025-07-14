@@ -53,7 +53,6 @@ export const AppointmentColumns: ColumnDef<Appointment>[] = [
     enableHiding: false,
     header: "Dịch vụ",
     cell: ({ row }) => {
-      console.log(row.original);
       return (
         <React.Fragment>
           {row.original.service.map((item) => (

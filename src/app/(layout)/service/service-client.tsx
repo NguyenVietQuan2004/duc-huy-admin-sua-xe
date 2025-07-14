@@ -19,7 +19,6 @@ export default function ServicePage() {
           Authorization: `Bearer ${token}`, // Gắn token vào header Authorization
         },
       });
-      console.log(services, "fadfds");
       setServices(services);
     };
     fetchAPI();

@@ -10,7 +10,6 @@ const ConfigHttp = async <ResType>(method: string, URL: string, option?: CustomR
     ...option?.headers,
     ...(isFormData ? {} : { "Content-Type": "application/json" }),
   };
-  console.log(option?.next);
   const response = await fetch(URL, {
     method,
     headers,

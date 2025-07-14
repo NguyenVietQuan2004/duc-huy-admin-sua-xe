@@ -75,7 +75,6 @@ const ContentInput: FC<Props> = ({ setValue, watch, errors, isEditting }) => {
             );
             html = html.replace(/<span[^>]*>(.*?)<\/span>/gi, "$1");
             evt.data.dataValue = html;
-            console.log("✅ Cleaned HTML pasted:", html);
           }}
           onChange={(event: any) => {
             const data = event.editor.getData();
