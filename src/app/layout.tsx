@@ -31,6 +31,7 @@ export default function RootLayout({
     }
 
     figure.image,
+    .tempo,
     figure.image.image_resized,
     .cke_editable figure.image {
       background: transparent !important;
